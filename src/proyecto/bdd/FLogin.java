@@ -1,6 +1,9 @@
 
 package proyecto.bdd;
 
+import static java.awt.image.ImageObserver.HEIGHT;
+import javax.swing.JOptionPane;
+
 
 public class FLogin extends javax.swing.JFrame {
     
@@ -25,7 +28,7 @@ public class FLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtClave = new javax.swing.JTextField();
+        txtContraseña = new javax.swing.JTextField();
         btnConfirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -34,8 +37,12 @@ public class FLogin extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Usuario");
 
+        txtUsuario.setText("Administrador");
+
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Clave");
+
+        txtContraseña.setText("ugc2025");
 
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -55,7 +62,7 @@ public class FLogin extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel1)
                         .addComponent(jLabel2)
-                        .addComponent(txtClave, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                        .addComponent(txtContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
                         .addComponent(txtUsuario)))
                 .addContainerGap(148, Short.MAX_VALUE))
         );
@@ -69,18 +76,27 @@ public class FLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnConfirmar)
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        FTickets Tickets = new FTickets();
-        Tickets.setVisible(true);
+        String usuario = txtUsuario.getText();
+        String contraseña = txtContraseña.getText();
+        
+        if("Administrador".equals(usuario) && "ugc2025".equals(contraseña)){
+            FTickets Tickets = new FTickets();
+            Tickets.setVisible(true);
+            
+            this.dispose();
+        } else {JOptionPane.showMessageDialog(this, "Datos incorrectos...", "Error", HEIGHT);}
+                             
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
@@ -112,7 +128,7 @@ public class FLogin extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField txtClave;
+    private javax.swing.JTextField txtContraseña;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class MariaClase {
+public class MariaDB {
    
     private Connection conn;        //conexion
     private PreparedStatement pst;  //prepara la consultas
@@ -20,7 +20,7 @@ public class MariaClase {
     private String clave;
     
     //constructor
-    public MariaClase(){
+    public MariaDB(){
         //inicializamos los necsario para conectarnos
         url="jdbc:mariadb://localhost/ordenes";
         usuario="root";
@@ -128,4 +128,14 @@ public class MariaClase {
         }
     }
    
+    public void ejecutarSQL(){ //INSERT, UPDATE o DELETE
+        
+        try{
+            this.pst = conn.prepareStatement(sql);
+            resultadoSQL = pst.executeUpdate();
+            
+        }catch(SQLException e){
+            System.out.println("Error: "+e.getMessage());
+        }
+    }
 }//class
