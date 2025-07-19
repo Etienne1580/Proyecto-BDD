@@ -7,36 +7,35 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MariaDB {
-   
+
     private Connection conn;        //conexion
     private PreparedStatement pst;  //prepara la consultas
     private ResultSet rs;           //almacena resultados SELECT
     private int resultadoSQL;       //almacena resultado en Insert,Update y Delete
-    
+
     private String sql;             //la consulta
-    
+
     private String url;
     private String usuario;
     private String clave;
-    
+
     //constructory
-    public MariaDB(){
+    public MariaDB() {
         //inicializamos los necsario para conectarnos
-        url="jdbc:mariadb://localhost/ordenes";
-        usuario="root";
-        clave="";
-        
-        try{
+        url = "jdbc:mariadb://localhost/ordenes";
+        usuario = "root";
+        clave = "";
+
+        try {
             conn = DriverManager.getConnection(url, usuario, clave);
             System.out.println("Conectado al Sistema....");
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
-           
-    }//contructor
-    
-    //****GETTERS y SETTERS
 
+    } //contructor
+
+    //****GETTERS y SETTERS
     public Connection getConn() {
         return conn;
     }
@@ -100,42 +99,39 @@ public class MariaDB {
     public void setClave(String clave) {
         this.clave = clave;
     }
-    
-    /********/
-    
+
     //cerramos la conexion
-    public void cerrarConexion(){
-        
-        try{
-           conn.close(); 
-           System.out.println("Desconectandonos del sistema...");
-        }catch(SQLException e){
-            System.out.println("Error: "+e.getMessage());
+    public void cerrarConexion() {
+
+        try {
+            conn.close();
+            System.out.println("Desconectandonos del sistema...");
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
         }
-        
+
     }
-    
+
     //*****funciones de consultas
-    
-    public void ejecutarSQLSelect(){
-        
-        try{
+    public void ejecutarSQLSelect() {
+
+        try {
             this.pst = conn.prepareStatement(sql);
             this.rs = pst.executeQuery();
-            
-        }catch(SQLException e){
-            System.out.println("Error: "+e.getMessage());
+
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
-   
-    public void ejecutarSQL(){ //INSERT, UPDATE o DELETE
-        
-        try{
+
+    public void ejecutarSQL() { //INSERT, UPDATE o DELETE
+
+        try {
             this.pst = conn.prepareStatement(sql);
             resultadoSQL = pst.executeUpdate();
-            
-        }catch(SQLException e){
-            System.out.println("Error: "+e.getMessage());
+
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
-}//class
+} //class

@@ -1,21 +1,17 @@
-
 package proyecto.bdd;
 
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 
-
 public class FLogin extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FLogin.class.getName());
 
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FLogin.class.getName());
 
     public FLogin() {
         initComponents();
-        
+
         //Nos conecntamos a MariaDB
         maria = new MariaDB();
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -89,47 +85,44 @@ public class FLogin extends javax.swing.JFrame {
         String contraseña = txtContraseña.getText();
         String info[] = new String[5];
         int numRegistro;
-        
+
         String sql = "select * from colaboradores where ";
-               sql += "usuarioColaborador = '"+usuario+"'";
-               sql += "and claveColaborador = '"+contraseña+"'";
-        
+               sql += "usuarioColaborador = '" + usuario + "'";
+               sql += "and claveColaborador = '" + contraseña + "'";
+
         maria.setSql(sql);
         maria.ejecutarSQLSelect();
-        
+
         try {
             maria.getRs().first();
             numRegistro = maria.getRs().getRow();
-            
-            if(numRegistro >= 0){
-                
-            System.out.println("Existe el usuario y clave");
-            info[0]=maria.getRs().getString("idColaborador");
-            info[1]=maria.getRs().getString("nombreColaborador");
-            info[2]=maria.getRs().getString("idDepartamentoColaborador");
-            info[3]=maria.getRs().getString("usuarioColaborador");
-            info[4]=maria.getRs().getString("claveColaborador");
-            
-            //creamos la ventana de tickets
-            FTickets Tickets = new FTickets();
-            Tickets.setUsuarioIngresado(info);
-            Tickets.setVisible(true);
-            
-            //eliminar login 
-            this.dispose();
-            
+
+            if (numRegistro >= 0) {
+
+                System.out.println("Existe el usuario y clave");
+                info[0] = maria.getRs().getString("idColaborador");
+                info[1] = maria.getRs().getString("nombreColaborador");
+                info[2] = maria.getRs().getString("idDepartamentoColaborador");
+                info[3] = maria.getRs().getString("usuarioColaborador");
+                info[4] = maria.getRs().getString("claveColaborador");
+
+                //creamos la ventana de tickets
+                FTickets Tickets = new FTickets();
+                Tickets.setUsuarioIngresado(info);
+                Tickets.setVisible(true);
+
+                //eliminar login 
+                this.dispose();
+
             } else {
                 JOptionPane.showMessageDialog(this, "Datos Incorrectos");
             }
-            
-             
-        } catch(SQLException e) {
+
+        } catch (SQLException e) {
             System.out.println("Error" + e.getMessage());
         }
-               
-               
+
         System.out.println(sql);
-                       
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -159,7 +152,7 @@ public class FLogin extends javax.swing.JFrame {
     }
 
     private MariaDB maria;
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JLabel jLabel1;
