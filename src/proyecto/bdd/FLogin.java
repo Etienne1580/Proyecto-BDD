@@ -14,6 +14,10 @@ public class FLogin extends javax.swing.JFrame {
      */
     public FLogin() {
         initComponents();
+        
+        //Nos conecntamos a MariaDB
+        maria = new MariaDB();
+        
     }
 
     /**
@@ -33,6 +37,11 @@ public class FLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inicio");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Usuario");
@@ -40,7 +49,7 @@ public class FLogin extends javax.swing.JFrame {
         txtUsuario.setText("Administrador");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Clave");
+        jLabel2.setText("Contraseña");
 
         txtContraseña.setText("ugc2025");
 
@@ -99,6 +108,10 @@ public class FLogin extends javax.swing.JFrame {
                              
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        maria.cerrarConexion();
+    }//GEN-LAST:event_formWindowClosed
+
     /**
      * @param args the command line arguments
      */
@@ -124,6 +137,8 @@ public class FLogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new FLogin().setVisible(true));
     }
 
+    MariaDB maria;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JLabel jLabel1;
