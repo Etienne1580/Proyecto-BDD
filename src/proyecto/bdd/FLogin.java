@@ -38,20 +38,22 @@ public class FLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inicio");
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Usuario");
 
-        txtUsuario.setText("Administrador");
-
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Contraseña");
 
-        txtContraseña.setText("ugc2025");
+        txtContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContraseñaActionPerformed(evt);
+            }
+        });
 
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -99,18 +101,28 @@ public class FLogin extends javax.swing.JFrame {
         String usuario = txtUsuario.getText();
         String contraseña = txtContraseña.getText();
         
-        if("Administrador".equals(usuario) && "ugc2025".equals(contraseña)){
+        String sql = "select * from colaboradores where ";
+               sql += "usuarioColaborador = '"+usuario+"'";
+               sql += "'and claveColaborador = '"+contraseña+"'";
+        
+        System.out.println(sql);
+        
+        /*if("Administrador".equals(usuario) && "ugc2025".equals(contraseña)){
             FTickets Tickets = new FTickets();
             Tickets.setVisible(true);
             
             this.dispose();
         } else {JOptionPane.showMessageDialog(this, "Datos incorrectos...", "Error", HEIGHT);}
-                             
+               */              
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         maria.cerrarConexion();
-    }//GEN-LAST:event_formWindowClosed
+    }//GEN-LAST:event_formWindowClosing
+
+    private void txtContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContraseñaActionPerformed
 
     /**
      * @param args the command line arguments
