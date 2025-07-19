@@ -36,7 +36,7 @@ public class FLogin extends javax.swing.JFrame {
         txtContraseña = new javax.swing.JTextField();
         btnConfirmar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Inicio");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -76,7 +76,7 @@ public class FLogin extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addComponent(txtContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
                         .addComponent(txtUsuario)))
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,6 +102,7 @@ public class FLogin extends javax.swing.JFrame {
         String usuario = txtUsuario.getText();
         String contraseña = txtContraseña.getText();
         String info[] = new String[5];
+        int numRegistro;
         
         String sql = "select * from colaboradores where ";
                sql += "usuarioColaborador = '"+usuario+"'";
@@ -111,8 +112,31 @@ public class FLogin extends javax.swing.JFrame {
         maria.ejecutarSQLSelect();
         
         try {
+            maria.getRs().first();
+            numRegistro = maria.getRs().getRow();
             
-            int num = maria.getRs().getRow();
+            if(numRegistro >= 0){
+                
+            System.out.println("Existe");
+            info[0]=maria.getRs().getString("idColaborador");
+            info[1]=maria.getRs().getString("nombreColaborador");
+            info[2]=maria.getRs().getString("idDepartamentoColaborador");
+            info[3]=maria.getRs().getString("usuarioColaborador");
+            info[4]=maria.getRs().getString("claveColaborador");
+            
+            //creamos la ventana de tickets
+            FTickets Tickets = new FTickets();
+            Tickets.setUsuarioIngresado(info);
+            Tickets.setVisible(true);
+            
+            //eliminar login 
+            this.dispose();
+            
+            } else {
+                 System.out.println("No existe"); 
+            }
+            
+            
             
         } catch(SQLException e) {
             System.out.println("Error");
@@ -121,13 +145,13 @@ public class FLogin extends javax.swing.JFrame {
                
         System.out.println(sql);
         
-        if("Administrador".equals(usuario) && "ugc2025".equals(contraseña)){
+        /*if("Administrador".equals(usuario) && "ugc2025".equals(contraseña)){
             FTickets Tickets = new FTickets();
             Tickets.setVisible(true);
             
             this.dispose();
         } else {JOptionPane.showMessageDialog(this, "Datos incorrectos...", "Error", HEIGHT);}
-                             
+           */                  
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -163,7 +187,7 @@ public class FLogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new FLogin().setVisible(true));
     }
 
-    MariaDB maria;
+    private MariaDB maria;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;

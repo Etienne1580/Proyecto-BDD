@@ -17,6 +17,9 @@ public class FTickets extends javax.swing.JFrame {
      */
     public FTickets() {
         initComponents();
+        
+        usuarioIngresado = new String[5];
+        
     }
 
     /**
@@ -38,12 +41,17 @@ public class FTickets extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
+        txtUsuarioIngresado = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tickets");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,7 +106,7 @@ public class FTickets extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Fecha");
 
-        jLabel2.setText("Usuario: Etienne");
+        txtUsuarioIngresado.setText("Usuario: Etienne");
 
         jLabel3.setText("15 Jul 2025");
 
@@ -128,7 +136,7 @@ public class FTickets extends javax.swing.JFrame {
                         .addGap(11, 11, 11))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2)
+                        .addComponent(txtUsuarioIngresado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)))
                 .addContainerGap())
@@ -158,7 +166,7 @@ public class FTickets extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(txtUsuarioIngresado)
                     .addComponent(jLabel3))
                 .addContainerGap())
         );
@@ -195,6 +203,10 @@ public class FTickets extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        this.txtUsuarioIngresado.setText(this.usuarioIngresado[1]);
+    }//GEN-LAST:event_formWindowActivated
+
     /**
      * @param args the command line arguments
      */
@@ -220,6 +232,16 @@ public class FTickets extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new FTickets().setVisible(true));
     }
 
+    public String[] getUsuarioIngresado() {
+        return usuarioIngresado;
+    }
+
+    public void setUsuarioIngresado(String[] usuarioIngresado) {
+        this.usuarioIngresado = usuarioIngresado;
+    }
+
+    private String usuarioIngresado[];
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBitacora;
     private javax.swing.JButton btnColaborador;
@@ -228,10 +250,10 @@ public class FTickets extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevo;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel txtUsuarioIngresado;
     // End of variables declaration//GEN-END:variables
 }
