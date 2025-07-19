@@ -3,6 +3,7 @@ package proyecto.bdd;
 
 import static java.awt.image.ImageObserver.HEIGHT;
 import javax.swing.JOptionPane;
+import java.sql.SQLException;
 
 
 public class FLogin extends javax.swing.JFrame {
@@ -100,20 +101,33 @@ public class FLogin extends javax.swing.JFrame {
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         String usuario = txtUsuario.getText();
         String contraseña = txtContraseña.getText();
+        String info[] = new String[5];
         
         String sql = "select * from colaboradores where ";
                sql += "usuarioColaborador = '"+usuario+"'";
                sql += "'and claveColaborador = '"+contraseña+"'";
         
+        maria.setSql(sql);
+        maria.ejecutarSQLSelect();
+        
+        try {
+            
+            int num = maria.getRs().getRow();
+            
+        } catch(SQLException e) {
+            System.out.println("Error");
+        }
+               
+               
         System.out.println(sql);
         
-        /*if("Administrador".equals(usuario) && "ugc2025".equals(contraseña)){
+        if("Administrador".equals(usuario) && "ugc2025".equals(contraseña)){
             FTickets Tickets = new FTickets();
             Tickets.setVisible(true);
             
             this.dispose();
         } else {JOptionPane.showMessageDialog(this, "Datos incorrectos...", "Error", HEIGHT);}
-               */              
+                             
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
