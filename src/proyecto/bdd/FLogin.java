@@ -1,7 +1,6 @@
 
 package proyecto.bdd;
 
-import static java.awt.image.ImageObserver.HEIGHT;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 
@@ -133,12 +132,12 @@ public class FLogin extends javax.swing.JFrame {
             this.dispose();
             
             } else {
-                JOptionPane.showMessageDialog(this,"Datos Incorrectos"); 
+                JOptionPane.showMessageDialog(this, "Datos Incorrectos");
             }
             
              
         } catch(SQLException e) {
-            System.out.println("Error"+e.getMessage());
+            System.out.println("Error" + e.getMessage());
         }
                
                

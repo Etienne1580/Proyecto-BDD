@@ -30,7 +30,7 @@ public class MariaDB {
             conn = DriverManager.getConnection(url, usuario, clave);
             System.out.println("Conectado al Sistema....");
         }catch(SQLException e){
-            System.out.println("Error: "+e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
            
     }//contructor
