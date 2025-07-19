@@ -108,7 +108,7 @@ public class MariaDB {
         
         try{
            conn.close(); 
-           System.out.println("Desconetandonos del sistemas...");
+           System.out.println("Desconectandonos del sistema...");
         }catch(SQLException e){
             System.out.println("Error: "+e.getMessage());
         }
