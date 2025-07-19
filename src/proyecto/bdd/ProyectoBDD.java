@@ -9,6 +9,9 @@ public class ProyectoBDD {
         
         FLogin Login = new FLogin();
         Login.setVisible(true);
+        
+        MariaDB maria = new MariaDB();
+        
     }
     
 }

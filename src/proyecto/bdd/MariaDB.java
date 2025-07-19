@@ -19,7 +19,7 @@ public class MariaDB {
     private String usuario;
     private String clave;
     
-    //constructor
+    //constructory
     public MariaDB(){
         //inicializamos los necsario para conectarnos
         url="jdbc:mariadb://localhost/ordenes";
