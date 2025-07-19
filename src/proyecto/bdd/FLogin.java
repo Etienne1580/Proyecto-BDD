@@ -106,7 +106,7 @@ public class FLogin extends javax.swing.JFrame {
         
         String sql = "select * from colaboradores where ";
                sql += "usuarioColaborador = '"+usuario+"'";
-               sql += "'and claveColaborador = '"+contraseña+"'";
+               sql += "and claveColaborador = '"+contraseña+"'";
         
         maria.setSql(sql);
         maria.ejecutarSQLSelect();
@@ -117,7 +117,7 @@ public class FLogin extends javax.swing.JFrame {
             
             if(numRegistro >= 0){
                 
-            System.out.println("Existe");
+            System.out.println("Existe el usuario y clave");
             info[0]=maria.getRs().getString("idColaborador");
             info[1]=maria.getRs().getString("nombreColaborador");
             info[2]=maria.getRs().getString("idDepartamentoColaborador");
@@ -133,25 +133,17 @@ public class FLogin extends javax.swing.JFrame {
             this.dispose();
             
             } else {
-                 System.out.println("No existe"); 
+                JOptionPane.showMessageDialog(this,"Datos Incorrectos"); 
             }
             
-            
-            
+             
         } catch(SQLException e) {
-            System.out.println("Error");
+            System.out.println("Error"+e.getMessage());
         }
                
                
         System.out.println(sql);
-        
-        /*if("Administrador".equals(usuario) && "ugc2025".equals(contraseña)){
-            FTickets Tickets = new FTickets();
-            Tickets.setVisible(true);
-            
-            this.dispose();
-        } else {JOptionPane.showMessageDialog(this, "Datos incorrectos...", "Error", HEIGHT);}
-           */                  
+                       
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
