@@ -6,6 +6,7 @@ public class FBitacora extends javax.swing.JFrame {
 
     public FBitacora() {
         initComponents();
+        
     }
 
     @SuppressWarnings("unchecked")
