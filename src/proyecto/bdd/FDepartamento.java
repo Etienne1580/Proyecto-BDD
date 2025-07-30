@@ -1,5 +1,9 @@
 package proyecto.bdd;
 
+import java.sql.SQLException;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+
 
 public class FDepartamento extends javax.swing.JFrame {
     
@@ -8,6 +12,25 @@ public class FDepartamento extends javax.swing.JFrame {
 
     public FDepartamento() {
         initComponents();
+        
+        modelo = new DefaultListModel();
+        jLista.setModel(modelo);   
+        
+        maria = new MariaDB();
+        
+        maria.setSql("select * from departamentos");
+        
+        maria.ejecutarSQLSelect();
+        
+        try{
+            while(maria.getRs().next()){
+                modelo.addElement(maria.getRs().getString("nombreDepartamento"));
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Error:..."+e.getMessage());
+        }
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -16,7 +39,7 @@ public class FDepartamento extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jLista = new javax.swing.JList<>();
         btnModificar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
@@ -27,12 +50,12 @@ public class FDepartamento extends javax.swing.JFrame {
 
         jLabel1.setText("Lista de Departamentos");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jLista.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(jLista);
 
         btnModificar.setText("Modificar");
 
@@ -105,12 +128,16 @@ public class FDepartamento extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new FDepartamento().setVisible(true));
     }
 
+    DefaultListModel modelo;
+    MariaDB maria;
+    DefaultComboBoxModel CbModelo;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jLista;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
