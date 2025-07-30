@@ -9,8 +9,7 @@ public class FTickets extends javax.swing.JFrame {
     public FTickets() {
         initComponents();
         
-        usuarioIngresado = new String[5];
-        
+        usuarioIngresado = new String[5];    
     }
 
     @SuppressWarnings("unchecked")
