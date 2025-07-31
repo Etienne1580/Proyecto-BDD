@@ -166,8 +166,9 @@ public class FTickets extends javax.swing.JFrame {
 
     private void btnColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColaboradorActionPerformed
         FColaborador Colaborador = new FColaborador();
+        Colaborador.setPadre(this);
         Colaborador.setVisible(true);
-        this.dispose();
+        this.setVisible(false);
     }//GEN-LAST:event_btnColaboradorActionPerformed
 
     private void btnDepartamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepartamentosActionPerformed

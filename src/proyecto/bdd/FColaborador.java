@@ -183,9 +183,8 @@ public class FColaborador extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.getPadre().setVisible(true);
         this.dispose();
-        FTickets Tickets = new FTickets();
-        Tickets.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {
@@ -209,11 +208,21 @@ public class FColaborador extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new FColaborador().setVisible(true));
     }
+
+    public FTickets getPadre() {
+        return padre;
+    }
+
+    public void setPadre(FTickets padre) {
+        this.padre = padre;
+    }
     
     DefaultListModel modelo;
     MariaDB maria;
     DefaultComboBoxModel CbModelo;
 
+    FTickets padre;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Departamentos;
     private javax.swing.JButton jButton1;
