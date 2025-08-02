@@ -40,13 +40,13 @@ public class FTickets extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Asunto", "Fecha Alta"
+                "ID", "Asunto", "Fecha Limite"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
