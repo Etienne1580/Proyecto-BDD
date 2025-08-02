@@ -123,7 +123,11 @@ public class FLogin extends javax.swing.JFrame {
             }
 
         } catch (SQLException e) {
-            System.out.println("Error" + e.getMessage());
+            System.out.println("Error SQL " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Datos Incorrectos");
+            txtUsuario.setText("");
+            txtContraseña.setText("");
+            txtUsuario.requestFocus();
         }
 
         System.out.println(sql);
