@@ -1,15 +1,27 @@
-
 package proyecto.bdd;
 
-public class FTickets extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FTickets.class.getName());
+import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
 
+public class FTickets extends javax.swing.JFrame {
+
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FTickets.class.getName());
 
     public FTickets() {
         initComponents();
-        
-        usuarioIngresado = new String[5];    
+
+        maria = new MariaDB();
+        modelo = new DefaultTableModel();
+        Tabla.setModel(modelo);
+
+        String titulos[] = {"id", "Asunto", "FechaAlta"};
+        modelo.setColumnIdentifiers(titulos);
+
+        usuarioIngresado = new String[5];
+
+        this.leerTickets();
+
+        usuarioIngresado = new String[5];
     }
 
     @SuppressWarnings("unchecked")
@@ -17,7 +29,7 @@ public class FTickets extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         btnNuevo = new javax.swing.JButton();
         btnFinalizar = new javax.swing.JButton();
         btnColaborador = new javax.swing.JButton();
@@ -38,7 +50,7 @@ public class FTickets extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -49,7 +61,10 @@ public class FTickets extends javax.swing.JFrame {
                 "ID", "Asunto", "Fecha Limite"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Tabla);
+        if (Tabla.getColumnModel().getColumnCount() > 0) {
+            Tabla.getColumnModel().getColumn(0).setMaxWidth(50);
+        }
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -196,6 +211,25 @@ public class FTickets extends javax.swing.JFrame {
         this.txtUsuarioIngresado.setText(this.usuarioIngresado[1]);
     }//GEN-LAST:event_formWindowActivated
 
+    void leerTickets() {
+        maria.setSql("select * from tickets");
+        maria.ejecutarSQLSelect();
+
+        try {
+
+            while (maria.getRs().next()) {
+                String id = maria.getRs().getString("idTicket");
+                String Asunto = maria.getRs().getString("asuntoTicket");
+                String FechaAlta = maria.getRs().getString("fechaAltaTicket");
+
+                modelo.addRow(new Object[]{id, Asunto, FechaAlta});
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+    }
 
     public static void main(String args[]) {
 
@@ -210,9 +244,12 @@ public class FTickets extends javax.swing.JFrame {
         this.usuarioIngresado = usuarioIngresado;
     }
 
+    DefaultTableModel modelo;
+    MariaDB maria;
     private String usuarioIngresado[];
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Tabla;
     private javax.swing.JButton btnBitacora;
     private javax.swing.JButton btnColaborador;
     private javax.swing.JButton btnDepartamentos;
@@ -223,7 +260,6 @@ public class FTickets extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel txtUsuarioIngresado;
     // End of variables declaration//GEN-END:variables
 }
