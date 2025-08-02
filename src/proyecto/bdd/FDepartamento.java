@@ -46,7 +46,7 @@ public class FDepartamento extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Departamentos");
 
         jLabel1.setText("Lista de Departamentos");
