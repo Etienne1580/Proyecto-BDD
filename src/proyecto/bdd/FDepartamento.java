@@ -12,9 +12,8 @@ public class FDepartamento extends javax.swing.JFrame {
         initComponents();
         conectarLista();
 
-        departamento = String.valueOf(modelo.getElementAt(11));
-        txtNombre.setText(departamento);
-
+        /*departamento = String.valueOf(modelo.getElementAt(11));
+        txtNombre.setText(departamento);*/
     }
 
     @SuppressWarnings("unchecked")
@@ -130,6 +129,7 @@ public class FDepartamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+       
         departamento = txtNombre.getText();
 
         maria.setSql("insert into departamentos(nombreDepartamento) values ('" + departamento + "' )");
@@ -143,6 +143,8 @@ public class FDepartamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+
+        departamento = txtNombre.getText();
 
         maria.setSql("delete from departamentos where nombreDepartamento = '" + departamento + "';");
         maria.ejecutarSQL();
