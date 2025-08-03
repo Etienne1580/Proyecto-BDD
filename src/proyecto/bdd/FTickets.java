@@ -17,8 +17,6 @@ public class FTickets extends javax.swing.JFrame {
         String titulos[] = {"id", "Asunto", "FechaAlta"};
         modelo.setColumnIdentifiers(titulos);
 
-        usuarioIngresado = new String[5];
-
         this.leerTickets();
 
         usuarioIngresado = new String[5];

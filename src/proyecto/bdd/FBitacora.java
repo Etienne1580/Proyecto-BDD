@@ -1,11 +1,23 @@
 package proyecto.bdd;
 
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+
 public class FBitacora extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FBitacora.class.getName());
 
     public FBitacora() {
         initComponents();
+        
+        maria = new MariaDB();
+        modelo = new DefaultTableModel();
+        Tabla.setModel(modelo);
+
+        String titulos[] = {"ID", "Descripcion", "Fecha"};
+        modelo.setColumnIdentifiers(titulos);
+
+        this.leerBitacoras();
         
     }
 
@@ -16,7 +28,7 @@ public class FBitacora extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Bitacora");
@@ -31,7 +43,7 @@ public class FBitacora extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Bitacora");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -42,7 +54,7 @@ public class FBitacora extends javax.swing.JFrame {
                 "Descripccion", "Fecha"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(Tabla);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,6 +96,26 @@ public class FBitacora extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new FBitacora().setVisible(true));
     }
 
+        void leerBitacoras() {
+        maria.setSql("select * from bitacoras");
+        maria.ejecutarSQLSelect();
+
+        try {
+
+            while (maria.getRs().next()) {
+                String id = maria.getRs().getString("idBitacora");
+                String Asunto = maria.getRs().getString("descripcionBitacora");
+                String FechaAlta = maria.getRs().getString("fechaBitacora");
+
+                modelo.addRow(new Object[]{id, Asunto, FechaAlta});
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+    }
+    
     public FTickets getPadre() {
         return padre;
     }
@@ -92,11 +124,15 @@ public class FBitacora extends javax.swing.JFrame {
         this.padre = padre;
     }
     
+    DefaultTableModel modelo;
+    MariaDB maria;
+    
     FTickets padre;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Tabla;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
