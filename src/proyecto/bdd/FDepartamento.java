@@ -10,24 +10,10 @@ public class FDepartamento extends javax.swing.JFrame {
 
     public FDepartamento() {
         initComponents();
+        conectarLista();
 
-        modelo = new DefaultListModel();
-        jLista.setModel(modelo);
-
-        maria = new MariaDB();
-
-        maria.setSql("select * from departamentos");
-
-        maria.ejecutarSQLSelect();
-
-        try {
-            while (maria.getRs().next()) {
-                modelo.addElement(maria.getRs().getString("nombreDepartamento"));
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error:..." + e.getMessage());
-        }
+        departamento = String.valueOf(modelo.getElementAt(11));
+        txtNombre.setText(departamento);
 
     }
 
@@ -38,11 +24,12 @@ public class FDepartamento extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jLista = new javax.swing.JList<>();
-        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
+        btnModificar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Departamentos");
@@ -56,11 +43,21 @@ public class FDepartamento extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jLista);
 
-        btnModificar.setText("Modificar");
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Nombre");
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -68,6 +65,8 @@ public class FDepartamento extends javax.swing.JFrame {
                 btnRegresarActionPerformed(evt);
             }
         });
+
+        btnModificar1.setText("Modificar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,20 +76,25 @@ public class FDepartamento extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnAgregar)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel1)
+                                .addGap(65, 65, 65))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addContainerGap(41, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnModificar1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEliminar)
+                        .addGap(112, 112, 112)
                         .addComponent(btnRegresar)
                         .addGap(14, 14, 14))))
         );
@@ -110,8 +114,9 @@ public class FDepartamento extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnModificar)
-                    .addComponent(btnRegresar))
+                    .addComponent(btnEliminar)
+                    .addComponent(btnRegresar)
+                    .addComponent(btnModificar1))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
@@ -123,6 +128,30 @@ public class FDepartamento extends javax.swing.JFrame {
         this.getPadre().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        departamento = txtNombre.getText();
+
+        maria.setSql("insert into departamentos(nombreDepartamento) values ('" + departamento + "' )");
+        maria.ejecutarSQL();
+
+        txtNombre.setText("");
+        txtNombre.requestFocus();
+
+        conectarLista();
+
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+
+        maria.setSql("delete from departamentos where nombreDepartamento = '" + departamento + "';");
+        maria.ejecutarSQL();
+
+        txtNombre.setText("");
+        txtNombre.requestFocus();
+
+        conectarLista();
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -146,6 +175,27 @@ public class FDepartamento extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new FDepartamento().setVisible(true));
     }
 
+    void conectarLista() {
+        modelo = new DefaultListModel();
+        jLista.setModel(modelo);
+
+        maria = new MariaDB();
+
+        maria.setSql("select * from departamentos");
+
+        maria.ejecutarSQLSelect();
+
+        try {
+            while (maria.getRs().next()) {
+                modelo.addElement(maria.getRs().getString("nombreDepartamento"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error:..." + e.getMessage());
+        }
+
+    }
+
     public FTickets getPadre() {
         return padre;
     }
@@ -158,11 +208,14 @@ public class FDepartamento extends javax.swing.JFrame {
     MariaDB maria;
     DefaultComboBoxModel CbModelo;
 
+    String departamento;
+
     FTickets padre;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar1;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
