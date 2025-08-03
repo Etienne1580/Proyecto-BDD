@@ -244,6 +244,7 @@ public class FTickets extends javax.swing.JFrame {
 
     DefaultTableModel modelo;
     MariaDB maria;
+    
     private String usuarioIngresado[];
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

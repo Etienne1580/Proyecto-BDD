@@ -4,12 +4,12 @@ import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
 public class FBitacora extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FBitacora.class.getName());
 
     public FBitacora() {
         initComponents();
-        
+
         maria = new MariaDB();
         modelo = new DefaultTableModel();
         Tabla.setModel(modelo);
@@ -18,7 +18,7 @@ public class FBitacora extends javax.swing.JFrame {
         modelo.setColumnIdentifiers(titulos);
 
         this.leerBitacoras();
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -90,13 +90,12 @@ public class FBitacora extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> new FBitacora().setVisible(true));
     }
 
-        void leerBitacoras() {
+    void leerBitacoras() {
         maria.setSql("select * from bitacoras");
         maria.ejecutarSQLSelect();
 
@@ -104,10 +103,10 @@ public class FBitacora extends javax.swing.JFrame {
 
             while (maria.getRs().next()) {
                 String id = maria.getRs().getString("idBitacora");
-                String Asunto = maria.getRs().getString("descripcionBitacora");
-                String FechaAlta = maria.getRs().getString("fechaBitacora");
+                String descripcion = maria.getRs().getString("descripcionBitacora");
+                String fecha = maria.getRs().getString("fechaBitacora");
 
-                modelo.addRow(new Object[]{id, Asunto, FechaAlta});
+                modelo.addRow(new Object[]{id, descripcion, fecha});
             }
 
         } catch (SQLException e) {
@@ -115,7 +114,7 @@ public class FBitacora extends javax.swing.JFrame {
         }
 
     }
-    
+
     public FTickets getPadre() {
         return padre;
     }
@@ -123,12 +122,12 @@ public class FBitacora extends javax.swing.JFrame {
     public void setPadre(FTickets padre) {
         this.padre = padre;
     }
-    
+
     DefaultTableModel modelo;
     MariaDB maria;
-    
+
     FTickets padre;
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabla;
     private javax.swing.JButton btnRegresar;
