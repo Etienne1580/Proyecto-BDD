@@ -14,7 +14,7 @@ public class FTickets extends javax.swing.JFrame {
         modelo = new DefaultTableModel();
         Tabla.setModel(modelo);
 
-        String titulos[] = {"id", "Asunto", "FechaAlta"};
+        String titulos[] = {"ID", "Asunto", "Fecha Alta"};
         modelo.setColumnIdentifiers(titulos);
 
         this.leerTickets();
