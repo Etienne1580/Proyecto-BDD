@@ -5,45 +5,44 @@ import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 
 public class FColaborador extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FColaborador.class.getName());
 
     public FColaborador() {
         initComponents();
-        
+
         modelo = new DefaultListModel();
         jLista.setModel(modelo);
         CbModelo = new DefaultComboBoxModel();
         Departamentos.setModel(CbModelo);
-        
+
         maria = new MariaDB();
-        
+
         maria.setSql("select * from colaboradores");
-        
+
         maria.ejecutarSQLSelect();
-        
-        try{
-            while(maria.getRs().next()){
+
+        try {
+            while (maria.getRs().next()) {
                 modelo.addElement(maria.getRs().getString("nombreColaborador"));
             }
-            
-        }catch(SQLException e){
-            System.out.println("Error:..."+e.getMessage());
+
+        } catch (SQLException e) {
+            System.out.println("Error:..." + e.getMessage());
         }
-        
-        
-         maria.setSql("select * from departamentos");
-         maria.ejecutarSQLSelect();
-         
-         try{
-            while(maria.getRs().next()){
+
+        maria.setSql("select * from departamentos");
+        maria.ejecutarSQLSelect();
+
+        try {
+            while (maria.getRs().next()) {
                 CbModelo.addElement(maria.getRs().getString("nombreDepartamento"));
             }
-            
-        }catch(SQLException e){
-            System.out.println("Error:..."+e.getMessage());
+
+        } catch (SQLException e) {
+            System.out.println("Error:..." + e.getMessage());
         }
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -217,13 +216,13 @@ public class FColaborador extends javax.swing.JFrame {
     public void setPadre(FTickets padre) {
         this.padre = padre;
     }
-    
+
     DefaultListModel modelo;
     MariaDB maria;
     DefaultComboBoxModel CbModelo;
 
     FTickets padre;
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Departamentos;
     private javax.swing.JButton btnRegresar;

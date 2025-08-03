@@ -91,8 +91,8 @@ public class FLogin extends javax.swing.JFrame {
         int numRegistro;
 
         String sql = "select * from colaboradores where ";
-               sql += "usuarioColaborador = '" + usuario + "'";
-               sql += " and claveColaborador = '" + contraseña + "'";
+        sql += "usuarioColaborador = '" + usuario + "'";
+        sql += " and claveColaborador = '" + contraseña + "'";
 
         maria.setSql(sql);
         maria.ejecutarSQLSelect();

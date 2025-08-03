@@ -1,36 +1,33 @@
-
 package proyecto.bdd;
 
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
-
 public class FNuevoticket extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FNuevoticket.class.getName());
 
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FNuevoticket.class.getName());
 
     public FNuevoticket() {
         initComponents();
-        
+
         CbModelo = new DefaultComboBoxModel();
         Departamentos.setModel(CbModelo);
-        
+
         maria = new MariaDB();
-        
+
         maria.setSql("select * from departamentos");
         maria.ejecutarSQLSelect();
-         
-        try{
-            while(maria.getRs().next()){
+
+        try {
+            while (maria.getRs().next()) {
                 CbModelo.addElement(maria.getRs().getString("nombreDepartamento"));
             }
-            
-        }catch(SQLException e){
-            System.out.println("Error:..."+e.getMessage());
+
+        } catch (SQLException e) {
+            System.out.println("Error:..." + e.getMessage());
         }
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -188,12 +185,10 @@ public class FNuevoticket extends javax.swing.JFrame {
         this.padre = padre;
     }
 
-    
     DefaultListModel modelo;
     MariaDB maria;
     DefaultComboBoxModel CbModelo;
-    
-    
+
     FTickets padre;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Departamentos;

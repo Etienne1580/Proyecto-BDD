@@ -4,33 +4,31 @@ import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
-
 public class FDepartamento extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FDepartamento.class.getName());
 
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FDepartamento.class.getName());
 
     public FDepartamento() {
         initComponents();
-        
+
         modelo = new DefaultListModel();
-        jLista.setModel(modelo);   
-        
+        jLista.setModel(modelo);
+
         maria = new MariaDB();
-        
+
         maria.setSql("select * from departamentos");
-        
+
         maria.ejecutarSQLSelect();
-        
-        try{
-            while(maria.getRs().next()){
+
+        try {
+            while (maria.getRs().next()) {
                 modelo.addElement(maria.getRs().getString("nombreDepartamento"));
             }
-            
-        }catch(SQLException e){
-            System.out.println("Error:..."+e.getMessage());
+
+        } catch (SQLException e) {
+            System.out.println("Error:..." + e.getMessage());
         }
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -155,13 +153,13 @@ public class FDepartamento extends javax.swing.JFrame {
     public void setPadre(FTickets padre) {
         this.padre = padre;
     }
-    
+
     DefaultListModel modelo;
     MariaDB maria;
     DefaultComboBoxModel CbModelo;
-    
+
     FTickets padre;
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnModificar;
