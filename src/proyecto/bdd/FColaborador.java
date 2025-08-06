@@ -192,7 +192,7 @@ public class FColaborador extends javax.swing.JFrame {
         nombre = txtNombre.getText();
         usuario = txtUsuario.getText();
         clave = txtClave.getText();
-        
+
         maria.setSql("insert into colaboradores(nombreColaborador,usuarioColaborador,claveColaborador,idDepartamentoColaborador) values('" + nombre + "','" + usuario + "','" + clave + "', '4');");
         maria.ejecutarSQL();
 

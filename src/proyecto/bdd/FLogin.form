@@ -71,7 +71,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtUsuario">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Etienne"/>
+        <Property name="text" type="java.lang.String" value="Hugo"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -84,7 +84,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtContrase&#xf1;a">
       <Properties>
-        <Property name="text" type="java.lang.String" value="555"/>
+        <Property name="text" type="java.lang.String" value="222"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnConfirmar">

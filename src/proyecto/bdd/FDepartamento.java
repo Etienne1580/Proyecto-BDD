@@ -1,5 +1,5 @@
-package proyecto.bdd;
-
+package proyecto.bdd;//GEN-FIRST:event_btnAgregarActionPerformed
+//GEN-LAST:event_btnAgregarActionPerformed
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -17,7 +17,7 @@ public class FDepartamento extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -119,14 +119,14 @@ public class FDepartamento extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {                                            
         this.getPadre().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
+    }                                           
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {                                           
        
         departamento = txtNombre.getText();
 
@@ -138,9 +138,9 @@ public class FDepartamento extends javax.swing.JFrame {
 
         conectarLista();
 
-    }//GEN-LAST:event_btnAgregarActionPerformed
+    }                                          
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {                                            
 
         departamento = txtNombre.getText();
         
@@ -151,7 +151,7 @@ public class FDepartamento extends javax.swing.JFrame {
         txtNombre.requestFocus();
 
         conectarLista();
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    }                                           
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -212,7 +212,7 @@ public class FDepartamento extends javax.swing.JFrame {
 
     FTickets padre;
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar1;
@@ -222,5 +222,5 @@ public class FDepartamento extends javax.swing.JFrame {
     private javax.swing.JList<String> jLista;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtNombre;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
