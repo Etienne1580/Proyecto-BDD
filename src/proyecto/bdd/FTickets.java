@@ -203,6 +203,7 @@ public class FTickets extends javax.swing.JFrame {
         Nuevoticket.setPadre(this);
         Nuevoticket.setVisible(true);
         this.setVisible(false);
+        Nuevoticket.setUsuarioIngresado(usuarioIngresado);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
