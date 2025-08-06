@@ -35,12 +35,12 @@ public class FLogin extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Usuario");
 
-        txtUsuario.setText("Etienne");
+        txtUsuario.setText("Hugo");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Contraseña");
 
-        txtContraseña.setText("555");
+        txtContraseña.setText("222");
 
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
