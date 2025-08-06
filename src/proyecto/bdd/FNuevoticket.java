@@ -194,7 +194,7 @@ public class FNuevoticket extends javax.swing.JFrame {
             int numPrioridad = prioridadToNumber(prioridad);
             String id = idColaboradorAlta();
             
-            System.out.println("Fecha: " + fecha + "\nDepartamento: " + departamento + "\nID de Colaborador: " + id + "\nPrioridad: " + prioridad +" "+ numPrioridad);
+            System.out.println("\nFecha: " + fecha + "\nDepartamento: " + departamento + "\nID de Colaborador: " + id + "\nPrioridad: " + prioridad +" ("+ numPrioridad + ")");
             System.out.println("Descripcion: " + descripcionTicket + "\n");
             
             txtFecha.setText("");
@@ -247,6 +247,7 @@ public class FNuevoticket extends javax.swing.JFrame {
         
         return numPrioridad;
     }
+    
     
     DefaultListModel modelo;
     MariaDB maria;
