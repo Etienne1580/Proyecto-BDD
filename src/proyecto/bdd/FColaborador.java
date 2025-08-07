@@ -174,9 +174,8 @@ public class FColaborador extends javax.swing.JFrame {
 
         nombre = txtNombre.getText();
         usuario = txtUsuario.getText();
-        clave = txtClave.getText();
-        //departamento = CbModelo.getElementAt(WIDTH);
-
+        clave = txtClave.getText();     
+        
         maria.setSql("delete from colaboradores where nombreColaborador = '" + nombre + "' and usuarioColaborador = '" + usuario + "' and claveColaborador = '" + clave + "';");
         maria.ejecutarSQL();
 
