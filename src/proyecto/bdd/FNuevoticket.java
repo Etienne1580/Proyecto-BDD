@@ -48,6 +48,9 @@ public class FNuevoticket extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
         txtFecha = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtAsunto = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Nuevo ticket");
@@ -88,64 +91,70 @@ public class FNuevoticket extends javax.swing.JFrame {
 
         jLabel2.setText("aaaa-mm-dd");
 
+        txtAsunto.setColumns(20);
+        txtAsunto.setRows(5);
+        jScrollPane1.setViewportView(txtAsunto);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setText("Asunto");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(62, 62, 62)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap())
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel4))
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Departamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addComponent(jLabel4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(Prioridad, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(95, 95, 95))))))
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnAgregar)
+                            .addComponent(jLabel2))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Prioridad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(49, 49, 49)))
+                .addGap(58, 58, 58))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
-                .addGap(81, 81, 81))
+                .addGap(93, 93, 93))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(83, 83, 83)
-                    .addComponent(btnAgregar)
-                    .addContainerGap(312, Short.MAX_VALUE)))
+                    .addComponent(jLabel1)
+                    .addComponent(Departamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Departamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -156,14 +165,11 @@ public class FNuevoticket extends javax.swing.JFrame {
                     .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addGap(4, 4, 4)
-                .addComponent(btnRegresar)
-                .addGap(17, 17, 17))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(301, Short.MAX_VALUE)
-                    .addComponent(btnAgregar)
-                    .addGap(15, 15, 15)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegresar)
+                    .addComponent(btnAgregar))
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -180,27 +186,30 @@ public class FNuevoticket extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Texto muy largo.");
         }
         
-        if(txtFecha.getText().equals("") || txtDescripcion.getText().equals("")) {
+        if(txtFecha.getText().equals("") || txtDescripcion.getText().equals("") || txtAsunto.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Todos los campos deben llenarse.");
             txtFecha.setText("");
             CbModelo.setSelectedItem("Mantenimiento");
             Prioridad.setSelectedItem("Baja");
         }
         else {
+            //Recolectar info
             descripcionTicket = txtDescripcion.getText();
+            asuntoTicket = txtAsunto.getText();
             String fecha = txtFecha.getText();
             String departamento = CbModelo.getSelectedItem().toString();
             String prioridad = Prioridad.getSelectedItem().toString();
-            int numPrioridad = prioridadToNumber(prioridad);
             String id = idColaboradorAlta();
             
-            System.out.println("\nFecha: " + fecha + "\nDepartamento: " + departamento + "\nID de Colaborador: " + id + "\nPrioridad: " + prioridad +" ("+ numPrioridad + ")");
-            System.out.println("Descripcion: " + descripcionTicket + "\n");
+            String idDpto = departamentoToId(departamento);
+            mandarInfo(descripcionTicket, fecha, idDpto, id, prioridad, asuntoTicket);
             
             txtFecha.setText("");
             txtDescripcion.setText("");
+            txtAsunto.setText("");
             CbModelo.setSelectedItem("Mantenimiento");
             Prioridad.setSelectedItem("Baja");
+
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -248,6 +257,50 @@ public class FNuevoticket extends javax.swing.JFrame {
         return numPrioridad;
     }
     
+    public String departamentoToId(String dpto) {
+        String idDpto = "";
+        maria.setSql("select idDepartamento from departamentos where nombreDepartamento = '" + dpto + "'");
+        maria.ejecutarSQLSelect();
+        System.out.println(maria.getSql());
+        
+        try {
+            while(maria.getRs().next()) {
+                idDpto = maria.getRs().getString("idDepartamento");
+                System.out.println("idDpto: " + idDpto);
+            }
+        } catch(SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        
+        return idDpto;
+    }
+    
+    public void mandarInfo(String descripcion, String fechaLim, String idDpto, String idColaboradorAlta,String prioridad, String asunto) {
+        String fechaAlta = "";
+        
+        maria.setSql("select curdate() as date");
+        maria.ejecutarSQLSelect();
+        
+        int numPrioridad = prioridadToNumber(prioridad);
+        
+        try {
+            while(maria.getRs().next()) {
+                fechaAlta = maria.getRs().getString("date");
+                System.out.print("\n" + fechaAlta);
+            }
+            System.out.println("\nFecha Limite: " + fechaLim + "\nDepartamento: " + idDpto + "\nID de Colaborador: " + idColaboradorAlta + "\nPrioridad: " + prioridad +" ("+ numPrioridad + ")");
+            System.out.println("Asunto: " + asuntoTicket + "\nDescripcion: " + descripcionTicket);
+            
+            maria.setSql("insert into tickets(descripcionTicket, fechaAltaTicket, fechaLimiteTicket, idDepartamentoTicket, idColaboradorAltaTicket,prioridadTicket, asuntoTicket) values('" + descripcion + "', '" + fechaAlta + "', '" + fechaLim + "', " + idDpto + ", " + idColaboradorAlta + ", " + numPrioridad + ", '" + asunto + "')");
+            maria.ejecutarSQL();
+            System.out.println(maria.getSql());
+            
+        } catch(SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+           
+    }
+    
     
     DefaultListModel modelo;
     MariaDB maria;
@@ -255,6 +308,7 @@ public class FNuevoticket extends javax.swing.JFrame {
     DefaultComboBoxModel CbModeloPrioridad;
     public String usuarioIngresado[];
     public String descripcionTicket;
+    public String asuntoTicket;
     public String idColaboradorAlta;
     
     FTickets padre;
@@ -268,7 +322,10 @@ public class FNuevoticket extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea txtAsunto;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtFecha;
     // End of variables declaration//GEN-END:variables
