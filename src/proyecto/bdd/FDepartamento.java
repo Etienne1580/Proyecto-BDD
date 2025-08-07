@@ -46,7 +46,8 @@ public class FDepartamento extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Departamento");
 
         jLista.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -66,6 +67,11 @@ public class FDepartamento extends javax.swing.JFrame {
         btnEliminar.setText("Eliminar");
 
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,13 +120,14 @@ public class FDepartamento extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.getPadre().setVisible(true);
         this.dispose();
-    }                                           
-
+    }//GEN-LAST:event_btnRegresarActionPerformed
+                              
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -153,7 +160,6 @@ public class FDepartamento extends javax.swing.JFrame {
     
     DefaultListModel modelo;
     MariaDB maria;
-    DefaultComboBoxModel CbModelo;
     
     FTickets padre;
     
