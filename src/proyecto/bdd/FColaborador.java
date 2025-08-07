@@ -44,6 +44,11 @@ public class FColaborador extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        jLista.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListaValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(jLista);
 
         jLabel2.setText("Nombre");
@@ -204,6 +209,15 @@ public class FColaborador extends javax.swing.JFrame {
 
         conectarDatos();
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void jListaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListaValueChanged
+        String pos = jLista.getSelectedValue();
+        
+        maria.setSql("Select * from colaboradores where nombreColaborador = '" + pos +"'");
+        System.out.println(maria.getSql());
+                
+        txtNombre.setText(pos);
+    }//GEN-LAST:event_jListaValueChanged
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

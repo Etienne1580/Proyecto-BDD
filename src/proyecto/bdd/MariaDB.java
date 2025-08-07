@@ -24,7 +24,7 @@ public class MariaDB {
         //inicializamos los necsario para conectarnos
         url = "jdbc:mariadb://localhost/ordenes";
         usuario = "root";
-        clave = "lucas2017";
+        clave = "";
 
         try {
             conn = DriverManager.getConnection(url, usuario, clave);

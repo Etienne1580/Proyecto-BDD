@@ -1,39 +1,52 @@
-package proyecto.bdd;//GEN-FIRST:event_btnAgregarActionPerformed
-//GEN-LAST:event_btnAgregarActionPerformed
+package proyecto.bdd;
+
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
-public class FDepartamento extends javax.swing.JFrame {
 
+public class FDepartamento extends javax.swing.JFrame {
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FDepartamento.class.getName());
 
     public FDepartamento() {
         initComponents();
-        conectarLista();
-
-        /*departamento = String.valueOf(modelo.getElementAt(11));
-        txtNombre.setText(departamento);*/
+        
+        modelo = new DefaultListModel();
+        jLista.setModel(modelo);   
+        
+        maria = new MariaDB();
+        
+        maria.setSql("select * from departamentos");
+        
+        maria.ejecutarSQLSelect();
+        
+        try{
+            while(maria.getRs().next()){
+                modelo.addElement(maria.getRs().getString("nombreDepartamento"));
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Error:..."+e.getMessage());
+        }
+        
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jLista = new javax.swing.JList<>();
-        btnEliminar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
-        btnModificar1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Departamentos");
-
-        jLabel1.setText("Lista de Departamentos");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLista.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -42,57 +55,41 @@ public class FDepartamento extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jLista);
 
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("Lista de Departamentos");
+
+        btnAgregar.setText("Agregar");
 
         jLabel2.setText("Nombre");
 
-        btnAgregar.setText("Agregar");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
+        btnModificar.setText("Modificar");
+
+        btnEliminar.setText("Eliminar");
 
         btnRegresar.setText("Regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-
-        btnModificar1.setText("Modificar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnAgregar, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addContainerGap(41, Short.MAX_VALUE))
+                        .addComponent(btnModificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnModificar1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEliminar)
-                        .addGap(112, 112, 112)
-                        .addComponent(btnRegresar)
-                        .addGap(14, 14, 14))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnAgregar)
+                                .addComponent(btnRegresar)))))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,54 +100,25 @@ public class FDepartamento extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAgregar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnAgregar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnModificar)
                     .addComponent(btnEliminar)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnRegresar)
-                        .addComponent(btnModificar1)))
-                .addContainerGap(9, Short.MAX_VALUE))
+                    .addComponent(btnRegresar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
-        setLocationRelativeTo(null);
-    }// </editor-fold>                        
+    }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {                                            
         this.getPadre().setVisible(true);
         this.dispose();
-    }                                           
-
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {                                           
-       
-        departamento = txtNombre.getText();
-
-        maria.setSql("insert into departamentos(nombreDepartamento) values ('" + departamento + "' )");
-        maria.ejecutarSQL();
-
-        txtNombre.setText("");
-        txtNombre.requestFocus();
-
-        conectarLista();
-
-    }                                          
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {                                            
-
-        departamento = txtNombre.getText();
-        
-        maria.setSql("delete from departamentos where nombreDepartamento = '" + departamento + "';");
-        maria.ejecutarSQL();
-
-        txtNombre.setText("");
-        txtNombre.requestFocus();
-
-        conectarLista();
     }                                           
 
     public static void main(String args[]) {
@@ -175,27 +143,6 @@ public class FDepartamento extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new FDepartamento().setVisible(true));
     }
 
-    void conectarLista() {
-        modelo = new DefaultListModel();
-        jLista.setModel(modelo);
-
-        maria = new MariaDB();
-
-        maria.setSql("select * from departamentos");
-
-        maria.ejecutarSQLSelect();
-
-        try {
-            while (maria.getRs().next()) {
-                modelo.addElement(maria.getRs().getString("nombreDepartamento"));
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error:..." + e.getMessage());
-        }
-
-    }
-
     public FTickets getPadre() {
         return padre;
     }
@@ -203,24 +150,22 @@ public class FDepartamento extends javax.swing.JFrame {
     public void setPadre(FTickets padre) {
         this.padre = padre;
     }
-
+    
     DefaultListModel modelo;
     MariaDB maria;
     DefaultComboBoxModel CbModelo;
-
-    String departamento;
-
+    
     FTickets padre;
-
-    // Variables declaration - do not modify                     
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnModificar1;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList<String> jLista;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtNombre;
-    // End of variables declaration                   
+    // End of variables declaration//GEN-END:variables
 }
