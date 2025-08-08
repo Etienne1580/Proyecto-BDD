@@ -12,8 +12,6 @@ public class FDepartamento extends javax.swing.JFrame {
         initComponents();
         conectarLista();
 
-        /*departamento = String.valueOf(modelo.getElementAt(11));
-        txtNombre.setText(departamento);*/
     }
 
     @SuppressWarnings("unchecked")
@@ -129,7 +127,7 @@ public class FDepartamento extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         departamento = txtNombre.getText();
-        
+
         maria.setSql("delete from departamentos where nombreDepartamento = '" + departamento + "';");
         maria.ejecutarSQL();
 
@@ -138,6 +136,28 @@ public class FDepartamento extends javax.swing.JFrame {
 
         conectarLista();
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+
+        departamento = txtNombre.getText();
+
+        maria.setSql("insert into departamentos(nombreDepartamento) values ('" + departamento + "' )");
+        maria.ejecutarSQL();
+
+        txtNombre.setText("");
+        txtNombre.requestFocus();
+
+        conectarLista();
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void jListaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListaValueChanged
+        String posLista = jLista.getSelectedValue();
+
+        maria.setSql("Select * from colaboradores where nombreDepartamento = '" + posLista + "'");
+        System.out.println(maria.getSql());
+
+        txtNombre.setText(posLista);
+    }//GEN-LAST:event_jListaValueChanged
 
     void conectarLista() {
         modelo = new DefaultListModel();
@@ -159,28 +179,6 @@ public class FDepartamento extends javax.swing.JFrame {
         }
 
     }
-
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-       
-        departamento = txtNombre.getText();
-
-        maria.setSql("insert into departamentos(nombreDepartamento) values ('" + departamento + "' )");
-        maria.ejecutarSQL();
-
-        txtNombre.setText("");
-        txtNombre.requestFocus();
-
-        conectarLista();
-    }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void jListaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListaValueChanged
-        String posLista = jLista.getSelectedValue();
-        
-        maria.setSql("Select * from colaboradores where nombreDepartamento = '" + posLista +"'");
-        System.out.println(maria.getSql());
-                
-        txtNombre.setText(posLista);
-    }//GEN-LAST:event_jListaValueChanged
 
     public static void main(String args[]) {
 
