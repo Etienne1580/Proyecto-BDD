@@ -55,6 +55,11 @@ public class FDepartamento extends javax.swing.JFrame {
         jLabel2.setText("Nombre");
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -151,13 +156,28 @@ public class FDepartamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void jListaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListaValueChanged
-        String posLista = jLista.getSelectedValue();
+        posLista = jLista.getSelectedValue();
 
         maria.setSql("Select * from colaboradores where nombreDepartamento = '" + posLista + "'");
         System.out.println(maria.getSql());
 
         txtNombre.setText(posLista);
+        txtNombre.requestFocus();
     }//GEN-LAST:event_jListaValueChanged
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        departamento = txtNombre.getText();
+        posLista = jLista.getSelectedValue();
+        
+
+        maria.setSql("update departamentos set nombreDepartamento = '" + departamento + "' where nombreDepartamento = '" + posLista + "';");
+        maria.ejecutarSQL();
+
+        txtNombre.setText("");
+        txtNombre.requestFocus();
+
+        conectarLista();
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     void conectarLista() {
         modelo = new DefaultListModel();
@@ -195,11 +215,12 @@ public class FDepartamento extends javax.swing.JFrame {
 
     DefaultListModel modelo;
     MariaDB maria;
-    DefaultComboBoxModel CbModelo;
 
     String departamento;
-
     FTickets padre;
+    String posLista;
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
