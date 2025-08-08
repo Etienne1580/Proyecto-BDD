@@ -1,7 +1,6 @@
 package proyecto.bdd;
 
 import java.sql.SQLException;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
 public class FDepartamento extends javax.swing.JFrame {
@@ -158,7 +157,7 @@ public class FDepartamento extends javax.swing.JFrame {
     private void jListaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListaValueChanged
         posLista = jLista.getSelectedValue();
 
-        maria.setSql("Select * from colaboradores where nombreDepartamento = '" + posLista + "'");
+        maria.setSql("Select * from departamentos where nombreDepartamento = '" + posLista + "'");
         System.out.println(maria.getSql());
 
         txtNombre.setText(posLista);
@@ -169,7 +168,6 @@ public class FDepartamento extends javax.swing.JFrame {
         departamento = txtNombre.getText();
         posLista = jLista.getSelectedValue();
         
-
         maria.setSql("update departamentos set nombreDepartamento = '" + departamento + "' where nombreDepartamento = '" + posLista + "';");
         maria.ejecutarSQL();
 
