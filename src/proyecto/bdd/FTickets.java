@@ -20,6 +20,7 @@ public class FTickets extends javax.swing.JFrame {
         this.leerTickets();
 
         usuarioIngresado = new String[5];
+        
     }
 
     @SuppressWarnings("unchecked")
