@@ -4,32 +4,16 @@ import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
-
 public class FDepartamento extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FDepartamento.class.getName());
 
     public FDepartamento() {
         initComponents();
-        
-        modelo = new DefaultListModel();
-        jLista.setModel(modelo);   
-        
-        maria = new MariaDB();
-        
-        maria.setSql("select * from departamentos");
-        
-        maria.ejecutarSQLSelect();
-        
-        try{
-            while(maria.getRs().next()){
-                modelo.addElement(maria.getRs().getString("nombreDepartamento"));
-            }
-            
-        }catch(SQLException e){
-            System.out.println("Error:..."+e.getMessage());
-        }
-        
+        conectarLista();
+
+        /*departamento = String.valueOf(modelo.getElementAt(11));
+        txtNombre.setText(departamento);*/
     }
 
     @SuppressWarnings("unchecked")
@@ -54,17 +38,32 @@ public class FDepartamento extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        jLista.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListaValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(jLista);
 
         jLabel1.setText("Lista de Departamentos");
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Nombre");
 
         btnModificar.setText("Modificar");
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -127,26 +126,64 @@ public class FDepartamento extends javax.swing.JFrame {
         this.getPadre().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
-                              
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        departamento = txtNombre.getText();
+        
+        maria.setSql("delete from departamentos where nombreDepartamento = '" + departamento + "';");
+        maria.ejecutarSQL();
+
+        txtNombre.setText("");
+        txtNombre.requestFocus();
+
+        conectarLista();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    void conectarLista() {
+        modelo = new DefaultListModel();
+        jLista.setModel(modelo);
+
+        maria = new MariaDB();
+
+        maria.setSql("select * from departamentos");
+
+        maria.ejecutarSQLSelect();
+
+        try {
+            while (maria.getRs().next()) {
+                modelo.addElement(maria.getRs().getString("nombreDepartamento"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error:..." + e.getMessage());
+        }
+
+    }
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+       
+        departamento = txtNombre.getText();
+
+        maria.setSql("insert into departamentos(nombreDepartamento) values ('" + departamento + "' )");
+        maria.ejecutarSQL();
+
+        txtNombre.setText("");
+        txtNombre.requestFocus();
+
+        conectarLista();
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void jListaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListaValueChanged
+        String posLista = jLista.getSelectedValue();
+        
+        maria.setSql("Select * from colaboradores where nombreDepartamento = '" + posLista +"'");
+        System.out.println(maria.getSql());
+                
+        txtNombre.setText(posLista);
+    }//GEN-LAST:event_jListaValueChanged
+
+    public static void main(String args[]) {
+
         java.awt.EventQueue.invokeLater(() -> new FDepartamento().setVisible(true));
     }
 
@@ -157,12 +194,14 @@ public class FDepartamento extends javax.swing.JFrame {
     public void setPadre(FTickets padre) {
         this.padre = padre;
     }
-    
+
     DefaultListModel modelo;
     MariaDB maria;
-    
+    DefaultComboBoxModel CbModelo;
+
+    String departamento;
+
     FTickets padre;
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
