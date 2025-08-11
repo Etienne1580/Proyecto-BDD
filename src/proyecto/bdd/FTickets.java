@@ -2,10 +2,10 @@ package proyecto.bdd;
 
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
+import javax.swing.DefaultComboBoxModel;
 
-public class FTickets extends javax.swing.JFrame {
+public final class FTickets extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FTickets.class.getName());
 
     public FTickets() {
         initComponents();
@@ -13,13 +13,21 @@ public class FTickets extends javax.swing.JFrame {
         maria = new MariaDB();
         modelo = new DefaultTableModel();
         Tabla.setModel(modelo);
-
+        CbModelo = new DefaultComboBoxModel();
+        CbFecha.setModel(CbModelo);
+        
         String titulos[] = {"ID", "Asunto", "Fecha Alta"};
         modelo.setColumnIdentifiers(titulos);
 
         this.leerTickets();
-
+        this.BuscarFecha();
+        
+        
         usuarioIngresado = new String[5];
+    
+        
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -33,11 +41,12 @@ public class FTickets extends javax.swing.JFrame {
         btnColaborador = new javax.swing.JButton();
         btnDepartamentos = new javax.swing.JButton();
         btnBitacora = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        CbFecha = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         txtUsuarioIngresado = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tickets");
@@ -94,10 +103,10 @@ public class FTickets extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        CbFecha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CbFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                CbFechaActionPerformed(evt);
             }
         });
 
@@ -107,6 +116,8 @@ public class FTickets extends javax.swing.JFrame {
         txtUsuarioIngresado.setText("Usuario: Etienne");
 
         jLabel3.setText("15 Jul 2025");
+
+        btnBuscar.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,19 +130,25 @@ public class FTickets extends javax.swing.JFrame {
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(77, 77, 77)
-                                .addComponent(btnNuevo)
-                                .addGap(43, 43, 43)
-                                .addComponent(btnFinalizar))
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnDepartamentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnColaborador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBitacora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(11, 11, 11))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(77, 77, 77)
+                                        .addComponent(btnNuevo)
+                                        .addGap(43, 43, 43)
+                                        .addComponent(btnFinalizar))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnDepartamentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnColaborador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnBitacora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(11, 11, 11))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(CbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscar)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(txtUsuarioIngresado)
@@ -145,8 +162,10 @@ public class FTickets extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(31, 31, 31)
@@ -173,9 +192,9 @@ public class FTickets extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void CbFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbFechaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_CbFechaActionPerformed
 
     private void btnColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColaboradorActionPerformed
         FColaborador Colaborador = new FColaborador();
@@ -229,6 +248,22 @@ public class FTickets extends javax.swing.JFrame {
         }
 
     }
+    
+    
+      private void BuscarFecha(){
+        maria.setSql("select * from tickets");
+        maria.ejecutarSQLSelect();
+        
+          try {
+            while (maria.getRs().next()) {
+                CbModelo.addElement(maria.getRs().getString("fechaAltaTicket"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error:..." + e.getMessage());
+        }
+
+    }
 
     public static void main(String args[]) {
 
@@ -242,20 +277,25 @@ public class FTickets extends javax.swing.JFrame {
     public void setUsuarioIngresado(String[] usuarioIngresado) {
         this.usuarioIngresado = usuarioIngresado;
     }
-
+    
+    
+    //DefaultListModel modelo;
+    DefaultComboBoxModel CbModelo;
     DefaultTableModel modelo;
     MariaDB maria;
-
+    
+    
     private String usuarioIngresado[];
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CbFecha;
     private javax.swing.JTable Tabla;
     private javax.swing.JButton btnBitacora;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnColaborador;
     private javax.swing.JButton btnDepartamentos;
     private javax.swing.JButton btnFinalizar;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
