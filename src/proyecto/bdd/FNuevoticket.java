@@ -182,17 +182,16 @@ public class FNuevoticket extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        if(txtDescripcion.getText().length() > 100) {
+        if (txtDescripcion.getText().length() > 100) {
             JOptionPane.showMessageDialog(this, "Texto muy largo.");
         }
-        
-        if(txtFecha.getText().equals("") || txtDescripcion.getText().equals("") || txtAsunto.getText().equals("")) {
+
+        if (txtFecha.getText().equals("") || txtDescripcion.getText().equals("") || txtAsunto.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Todos los campos deben llenarse.");
             txtFecha.setText("");
             CbModelo.setSelectedItem("Mantenimiento");
             Prioridad.setSelectedItem("Baja");
-        }
-        else {
+        } else {
             //Recolectar info
             descripcionTicket = txtDescripcion.getText();
             asuntoTicket = txtAsunto.getText();
@@ -200,10 +199,10 @@ public class FNuevoticket extends javax.swing.JFrame {
             String departamento = CbModelo.getSelectedItem().toString();
             String prioridad = Prioridad.getSelectedItem().toString();
             String id = idColaboradorAlta();
-            
+
             String idDpto = departamentoToId(departamento);
             mandarInfo(descripcionTicket, fecha, idDpto, id, prioridad, asuntoTicket);
-            
+
             txtFecha.setText("");
             txtDescripcion.setText("");
             txtAsunto.setText("");
@@ -225,7 +224,7 @@ public class FNuevoticket extends javax.swing.JFrame {
     public void setPadre(FTickets padre) {
         this.padre = padre;
     }
-    
+
     public String[] getUsuarioIngresado() {
         return usuarioIngresado;
     }
@@ -233,75 +232,77 @@ public class FNuevoticket extends javax.swing.JFrame {
     public void setUsuarioIngresado(String[] usuarioIngresado) {
         this.usuarioIngresado = usuarioIngresado;
     }
-    
+
     public String idColaboradorAlta() {
         usuarioIngresado = getUsuarioIngresado();
         String idColaboradorAlta = this.usuarioIngresado[0];
         //System.out.println("ID de usuario: " + idColaboradorAlta);
-        
+
         return idColaboradorAlta;
     }
-    
+
     public int prioridadToNumber(String prioridad) {
         int numPrioridad = 0;
-        
-        switch(prioridad) {
-            case "Baja": numPrioridad = 0;
-                    break;
-            case "Media": numPrioridad = 1;
-                    break;
-            case "Alta": numPrioridad = 2;
-                    break;
+
+        switch (prioridad) {
+            case "Baja":
+                numPrioridad = 0;
+                break;
+            case "Media":
+                numPrioridad = 1;
+                break;
+            case "Alta":
+                numPrioridad = 2;
+                break;
         }
-        
+
         return numPrioridad;
     }
-    
+
     public String departamentoToId(String dpto) {
         String idDpto = "";
         maria.setSql("select idDepartamento from departamentos where nombreDepartamento = '" + dpto + "'");
         maria.ejecutarSQLSelect();
         System.out.println(maria.getSql());
-        
+
         try {
-            while(maria.getRs().next()) {
+            while (maria.getRs().next()) {
                 idDpto = maria.getRs().getString("idDepartamento");
                 System.out.println("idDpto: " + idDpto);
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
-        
+
         return idDpto;
     }
-    
-    public void mandarInfo(String descripcion, String fechaLim, String idDpto, String idColaboradorAlta,String prioridad, String asunto) {
+
+    public void mandarInfo(String descripcion, String fechaLim, String idDpto, String idColaboradorAlta, String prioridad, String asunto) {
         String fechaAlta = "";
-        
+
         maria.setSql("select curdate() as date");
         maria.ejecutarSQLSelect();
-        
+
         int numPrioridad = prioridadToNumber(prioridad);
-        
+
         try {
-            while(maria.getRs().next()) {
+            while (maria.getRs().next()) {
                 fechaAlta = maria.getRs().getString("date");
                 System.out.print("\n" + fechaAlta);
             }
-            System.out.println("\nFecha Limite: " + fechaLim + "\nDepartamento: " + idDpto + "\nID de Colaborador: " + idColaboradorAlta + "\nPrioridad: " + prioridad +" ("+ numPrioridad + ")");
+            System.out.println("\nFecha Limite: " + fechaLim + "\nDepartamento: " + idDpto + "\nID de Colaborador: " + idColaboradorAlta + "\nPrioridad: " + prioridad + " (" + numPrioridad + ")");
             System.out.println("Asunto: " + asuntoTicket + "\nDescripcion: " + descripcionTicket);
-            
+
             maria.setSql("insert into tickets(descripcionTicket, fechaAltaTicket, fechaLimiteTicket, idDepartamentoTicket, idColaboradorAltaTicket,prioridadTicket, asuntoTicket) values('" + descripcion + "', '" + fechaAlta + "', '" + fechaLim + "', " + idDpto + ", " + idColaboradorAlta + ", " + numPrioridad + ", '" + asunto + "')");
             maria.ejecutarSQL();
             System.out.println(maria.getSql());
-            
-        } catch(SQLException e) {
+
+        } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
-           
+
     }
-    
-    
+
     DefaultListModel modelo;
     MariaDB maria;
     DefaultComboBoxModel CbModelo;
@@ -310,7 +311,7 @@ public class FNuevoticket extends javax.swing.JFrame {
     public String descripcionTicket;
     public String asuntoTicket;
     public String idColaboradorAlta;
-    
+
     FTickets padre;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Departamentos;
