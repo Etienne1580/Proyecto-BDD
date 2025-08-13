@@ -38,7 +38,7 @@ public final class FTickets extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         txtUsuarioIngresado = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jlFecha = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
         txtFecha = new javax.swing.JTextField();
         btnActualizar = new javax.swing.JButton();
@@ -103,7 +103,7 @@ public final class FTickets extends javax.swing.JFrame {
 
         txtUsuarioIngresado.setText("Usuario: Etienne");
 
-        jLabel3.setText("15 Jul 2025");
+        jlFecha.setText("15 Jul 2025");
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -158,7 +158,7 @@ public final class FTickets extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(txtUsuarioIngresado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)))
+                        .addComponent(jlFecha)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -190,7 +190,7 @@ public final class FTickets extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUsuarioIngresado)
-                    .addComponent(jLabel3))
+                    .addComponent(jlFecha))
                 .addContainerGap())
         );
 
@@ -229,6 +229,7 @@ public final class FTickets extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         this.txtUsuarioIngresado.setText(this.usuarioIngresado[1]);
+        this.jlFecha.setText(getFecha());
     }//GEN-LAST:event_formWindowActivated
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -251,10 +252,7 @@ public final class FTickets extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
        
-      this.leerTickets("select * from  tickets  ");
-      
-        
-        
+      this.leerTickets("select * from  tickets  "); 
     }//GEN-LAST:event_btnActualizarActionPerformed
     
     
@@ -290,7 +288,22 @@ public final class FTickets extends javax.swing.JFrame {
     }
     
     
-    
+    public String getFecha() {
+        maria.setSql("select curdate() as date");
+        maria.ejecutarSQLSelect();
+        String fechaAlta = "";
+        
+        try {
+            while (maria.getRs().next()) {
+                fechaAlta = maria.getRs().getString("date");
+                System.out.print(fechaAlta);
+            }
+        } catch(SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        
+        return fechaAlta;
+    }
     
     
     
@@ -330,7 +343,7 @@ public final class FTickets extends javax.swing.JFrame {
     MariaDB maria;
     
     
-     String Fecha;
+    String Fecha;
     
     
     private String usuarioIngresado[];
@@ -345,9 +358,9 @@ public final class FTickets extends javax.swing.JFrame {
     private javax.swing.JButton btnFinalizar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel jlFecha;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JLabel txtUsuarioIngresado;
     // End of variables declaration//GEN-END:variables
