@@ -12,14 +12,13 @@ public final class FTickets extends javax.swing.JFrame {
         maria = new MariaDB();
         modelo = new DefaultTableModel();
         Tabla.setModel(modelo);
-        CbModelo = new DefaultComboBoxModel();
-        CbFecha.setModel(CbModelo);
+        
 
         String titulos[] = {"ID", "Asunto", "Fecha Alta"};
         modelo.setColumnIdentifiers(titulos);
 
-        this.leerTickets();
-        this.BuscarFecha();
+        this.leerTickets("select * from tickets");
+        
 
         usuarioIngresado = new String[5];
 
@@ -36,12 +35,12 @@ public final class FTickets extends javax.swing.JFrame {
         btnColaborador = new javax.swing.JButton();
         btnDepartamentos = new javax.swing.JButton();
         btnBitacora = new javax.swing.JButton();
-        CbFecha = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         txtUsuarioIngresado = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
+        txtFecha = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tickets");
@@ -98,13 +97,6 @@ public final class FTickets extends javax.swing.JFrame {
             }
         });
 
-        CbFecha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        CbFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CbFechaActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Fecha");
 
@@ -113,6 +105,11 @@ public final class FTickets extends javax.swing.JFrame {
         jLabel3.setText("15 Jul 2025");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,8 +137,9 @@ public final class FTickets extends javax.swing.JFrame {
                                     .addComponent(btnBitacora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(11, 11, 11))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(CbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(6, 6, 6)
+                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnBuscar)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
@@ -158,8 +156,8 @@ public final class FTickets extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addComponent(btnBuscar)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -186,10 +184,6 @@ public final class FTickets extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void CbFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbFechaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CbFechaActionPerformed
 
     private void btnColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColaboradorActionPerformed
         FColaborador Colaborador = new FColaborador();
@@ -224,12 +218,42 @@ public final class FTickets extends javax.swing.JFrame {
         this.txtUsuarioIngresado.setText(this.usuarioIngresado[1]);
     }//GEN-LAST:event_formWindowActivated
 
-    void leerTickets() {
-        maria.setSql("select * from tickets");
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        Fecha = txtFecha.getText();
+        String consulta = "select * from tickets where fechaAltaTicket >= '" + Fecha +"' order by idTicket";
+            
+        System.out.println(consulta);
+        this.leerTickets(consulta);
+        
+
+        
+        
+        txtFecha.setText("");
+        
+
+        txtFecha.requestFocus();
+
+       
+    }//GEN-LAST:event_btnBuscarActionPerformed
+    
+    
+    public void limpiartabla(){
+    DefaultTableModel temp = (DefaultTableModel) Tabla.getModel();
+    int filas = Tabla.getRowCount();
+
+    for (int a = 0; filas > a; a++) {
+        temp.removeRow(0);
+    }
+}
+    
+    
+    
+    void leerTickets(String sql) {
+        maria.setSql(sql);
         maria.ejecutarSQLSelect();
 
         try {
-
+            limpiartabla();
             while (maria.getRs().next()) {
                 String id = maria.getRs().getString("idTicket");
                 String Asunto = maria.getRs().getString("asuntoTicket");
@@ -243,8 +267,14 @@ public final class FTickets extends javax.swing.JFrame {
         }
 
     }
+    
+    
+    
+    
+    
+    
 
-    private void BuscarFecha() {
+    /*private void BuscarFecha() {
         maria.setSql("select * from tickets");
         maria.ejecutarSQLSelect();
 
@@ -257,7 +287,7 @@ public final class FTickets extends javax.swing.JFrame {
             System.out.println("Error:..." + e.getMessage());
         }
 
-    }
+    }*/
 
     public static void main(String args[]) {
 
@@ -275,12 +305,16 @@ public final class FTickets extends javax.swing.JFrame {
     //DefaultListModel modelo;
     DefaultComboBoxModel CbModelo;
     DefaultTableModel modelo;
+    DefaultTableModel temp;
     MariaDB maria;
-
+    
+    
+     String Fecha;
+    
+    
     private String usuarioIngresado[];
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CbFecha;
     private javax.swing.JTable Tabla;
     private javax.swing.JButton btnBitacora;
     private javax.swing.JButton btnBuscar;
@@ -292,6 +326,7 @@ public final class FTickets extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField txtFecha;
     private javax.swing.JLabel txtUsuarioIngresado;
     // End of variables declaration//GEN-END:variables
 }
