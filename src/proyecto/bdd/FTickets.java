@@ -14,7 +14,7 @@ public final class FTickets extends javax.swing.JFrame {
         Tabla.setModel(modelo);
         
 
-        String titulos[] = {"ID", "Asunto", "Fecha Alta"};
+        String titulos[] = {"ID", "Asunto", "Fecha Alta","Activo Ticket"};
         modelo.setColumnIdentifiers(titulos);
 
         this.leerTickets("select * from tickets");
@@ -54,13 +54,13 @@ public final class FTickets extends javax.swing.JFrame {
 
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Asunto", "Fecha Limite"
+                "ID", "Asunto", "Fecha Limite", "Activo Ticket"
             }
         ));
         jScrollPane1.setViewportView(Tabla);
@@ -277,8 +277,10 @@ public final class FTickets extends javax.swing.JFrame {
                 String id = maria.getRs().getString("idTicket");
                 String Asunto = maria.getRs().getString("asuntoTicket");
                 String FechaAlta = maria.getRs().getString("fechaAltaTicket");
-
-                modelo.addRow(new Object[]{id, Asunto, FechaAlta});
+                int ActivoTicket = maria.getRs().getInt("activoTicket");
+                
+                
+                modelo.addRow(new Object[]{id, Asunto, FechaAlta,ActivoTicket});
             }
 
         } catch (SQLException e) {
