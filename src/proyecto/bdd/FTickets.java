@@ -19,6 +19,8 @@ public final class FTickets extends javax.swing.JFrame {
         this.leerTickets("select * from tickets");
 
         usuarioIngresado = new String[5];
+        
+        System.out.print(getFecha() + "\n");
 
     }
 
@@ -287,7 +289,7 @@ public final class FTickets extends javax.swing.JFrame {
         try {
             while (maria.getRs().next()) {
                 fechaAlta = maria.getRs().getString("date");
-                System.out.print(fechaAlta);
+                
             }
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
