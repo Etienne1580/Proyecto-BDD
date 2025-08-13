@@ -102,42 +102,45 @@ public class FNuevoticket extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel4))
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnAgregar)
-                            .addComponent(jLabel2))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Prioridad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(49, 49, 49)))
-                .addGap(58, 58, 58))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
                 .addGap(93, 93, 93))
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(Departamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addGap(25, 25, 25)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnAgregar)
+                                    .addComponent(jLabel2)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(30, 30, 30)
+                                        .addComponent(jLabel4)
+                                        .addGap(106, 106, 106)
+                                        .addComponent(jLabel5))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(Prioridad, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(36, 36, 36))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel1)
+                            .addComponent(Departamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))
+                                .addGap(25, 25, 25)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -191,6 +194,7 @@ public class FNuevoticket extends javax.swing.JFrame {
             txtFecha.setText("");
             CbModelo.setSelectedItem("Mantenimiento");
             Prioridad.setSelectedItem("Baja");
+
         } else {
             //Recolectar info
             descripcionTicket = txtDescripcion.getText();
@@ -259,6 +263,23 @@ public class FNuevoticket extends javax.swing.JFrame {
         return numPrioridad;
     }
 
+    public int activarTicket(String ActivarTicket) {
+        int numActivar = 0;
+
+        switch (ActivarTicket) {
+            case "Desactivado":
+                numActivar = 0;
+                break;
+            case "Activado":
+                numActivar = 1;
+                break;
+
+        }
+
+        return numActivar;
+
+    }
+
     public String departamentoToId(String dpto) {
         String idDpto = "";
         maria.setSql("select idDepartamento from departamentos where nombreDepartamento = '" + dpto + "'");
@@ -293,7 +314,7 @@ public class FNuevoticket extends javax.swing.JFrame {
             System.out.println("\nFecha Limite: " + fechaLim + "\nDepartamento: " + idDpto + "\nID de Colaborador: " + idColaboradorAlta + "\nPrioridad: " + prioridad + " (" + numPrioridad + ")");
             System.out.println("Asunto: " + asuntoTicket + "\nDescripcion: " + descripcionTicket);
 
-            maria.setSql("insert into tickets(descripcionTicket, fechaAltaTicket, fechaLimiteTicket, idDepartamentoTicket, idColaboradorAltaTicket,prioridadTicket, asuntoTicket) values('" + descripcion + "', '" + fechaAlta + "', '" + fechaLim + "', " + idDpto + ", " + idColaboradorAlta + ", " + numPrioridad + ", '" + asunto + "')");
+            maria.setSql("insert into tickets(descripcionTicket, fechaAltaTicket, fechaLimiteTicket, idDepartamentoTicket, idColaboradorAltaTicket,prioridadTicket, asuntoTicket, activoTicket) values('" + descripcion + "', '" + fechaAlta + "', '" + fechaLim + "', " + idDpto + ", " + idColaboradorAlta + ", " + numPrioridad + ", '" + asunto + "', 1)");
             maria.ejecutarSQL();
             System.out.println(maria.getSql());
 
@@ -307,6 +328,7 @@ public class FNuevoticket extends javax.swing.JFrame {
     MariaDB maria;
     DefaultComboBoxModel CbModelo;
     DefaultComboBoxModel CbModeloPrioridad;
+    DefaultComboBoxModel CbModeloCbTicket;
     public String usuarioIngresado[];
     public String descripcionTicket;
     public String asuntoTicket;
