@@ -12,13 +12,11 @@ public final class FTickets extends javax.swing.JFrame {
         maria = new MariaDB();
         modelo = new DefaultTableModel();
         Tabla.setModel(modelo);
-        
 
-        String titulos[] = {"ID", "Asunto", "Fecha Alta","Activo Ticket"};
+        String titulos[] = {"ID", "Asunto", "Fecha Alta", "Activo Ticket"};
         modelo.setColumnIdentifiers(titulos);
 
         this.leerTickets("select * from tickets");
-        
 
         usuarioIngresado = new String[5];
 
@@ -234,39 +232,32 @@ public final class FTickets extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         Fecha = txtFecha.getText();
-        String consulta = "select * from tickets where fechaAltaTicket >= '" + Fecha +"' order by idTicket";
-            
+        String consulta = "select * from tickets where fechaAltaTicket >= '" + Fecha + "' order by idTicket";
+
         System.out.println(consulta);
         this.leerTickets(consulta);
-        
 
-        
-        
         txtFecha.setText("");
-        
 
         txtFecha.requestFocus();
 
-       
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-       
-      this.leerTickets("select * from  tickets  "); 
-    }//GEN-LAST:event_btnActualizarActionPerformed
-    
-    
-    public void limpiartabla(){
-    DefaultTableModel temp = (DefaultTableModel) Tabla.getModel();
-    int filas = Tabla.getRowCount();
 
-    for (int a = 0; filas > a; a++) {
-        temp.removeRow(0);
+        this.leerTickets("select * from  tickets  ");
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    public void limpiartabla() {
+        DefaultTableModel temp = (DefaultTableModel) Tabla.getModel();
+        int filas = Tabla.getRowCount();
+
+        for (int a = 0; filas > a; a++) {
+            temp.removeRow(0);
+        }
     }
-}
-    
-    
-    
+
     void leerTickets(String sql) {
         maria.setSql(sql);
         maria.ejecutarSQLSelect();
@@ -278,9 +269,8 @@ public final class FTickets extends javax.swing.JFrame {
                 String Asunto = maria.getRs().getString("asuntoTicket");
                 String FechaAlta = maria.getRs().getString("fechaAltaTicket");
                 int ActivoTicket = maria.getRs().getInt("activoTicket");
-                
-                
-                modelo.addRow(new Object[]{id, Asunto, FechaAlta,ActivoTicket});
+
+                modelo.addRow(new Object[]{id, Asunto, FechaAlta, ActivoTicket});
             }
 
         } catch (SQLException e) {
@@ -288,27 +278,23 @@ public final class FTickets extends javax.swing.JFrame {
         }
 
     }
-    
-    
+
     public String getFecha() {
         maria.setSql("select curdate() as date");
         maria.ejecutarSQLSelect();
         String fechaAlta = "";
-        
+
         try {
             while (maria.getRs().next()) {
                 fechaAlta = maria.getRs().getString("date");
                 System.out.print(fechaAlta);
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
-        
+
         return fechaAlta;
     }
-    
-    
-    
 
     /*private void BuscarFecha() {
         maria.setSql("select * from tickets");
@@ -324,7 +310,6 @@ public final class FTickets extends javax.swing.JFrame {
         }
 
     }*/
-
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> new FTickets().setVisible(true));
@@ -343,11 +328,9 @@ public final class FTickets extends javax.swing.JFrame {
     DefaultTableModel modelo;
     DefaultTableModel temp;
     MariaDB maria;
-    
-    
+
     String Fecha;
-    
-    
+
     private String usuarioIngresado[];
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
