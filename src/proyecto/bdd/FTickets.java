@@ -112,7 +112,7 @@ public final class FTickets extends javax.swing.JFrame {
             }
         });
 
-        btnActualizar.setText("Actulizar");
+        btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
@@ -147,9 +147,9 @@ public final class FTickets extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnBuscar))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(77, 77, 77)
+                                        .addGap(40, 40, 40)
                                         .addComponent(btnNuevo)
-                                        .addGap(31, 31, 31)
+                                        .addGap(28, 28, 28)
                                         .addComponent(btnFinalizar)
                                         .addGap(18, 18, 18)
                                         .addComponent(btnActualizar)))
@@ -182,8 +182,8 @@ public final class FTickets extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnFinalizar)
                     .addComponent(btnNuevo)
+                    .addComponent(btnFinalizar)
                     .addComponent(btnActualizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
