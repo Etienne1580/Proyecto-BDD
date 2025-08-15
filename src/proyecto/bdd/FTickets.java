@@ -42,6 +42,7 @@ public final class FTickets extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         txtFecha = new javax.swing.JTextField();
         btnActualizar = new javax.swing.JButton();
+        btnVerTicket = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tickets");
@@ -119,6 +120,13 @@ public final class FTickets extends javax.swing.JFrame {
             }
         });
 
+        btnVerTicket.setText("Ver Ticket");
+        btnVerTicket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerTicketActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,32 +135,26 @@ public final class FTickets extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                        .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel1)
+                                        .addGap(304, 304, 304))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnDepartamentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnColaborador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnBitacora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(11, 11, 11))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnBuscar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(40, 40, 40)
-                                        .addComponent(btnNuevo)
-                                        .addGap(28, 28, 28)
-                                        .addComponent(btnFinalizar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnActualizar)))
+                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscar)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -160,6 +162,16 @@ public final class FTickets extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jlFecha)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnFinalizar)
+                .addGap(12, 12, 12)
+                .addComponent(btnActualizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnVerTicket)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,7 +196,8 @@ public final class FTickets extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo)
                     .addComponent(btnFinalizar)
-                    .addComponent(btnActualizar))
+                    .addComponent(btnActualizar)
+                    .addComponent(btnVerTicket))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
@@ -250,6 +263,20 @@ public final class FTickets extends javax.swing.JFrame {
 
         this.leerTickets("select * from  tickets  ");
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnVerTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerTicketActionPerformed
+        int row = Tabla.getSelectedRow();
+        String idItem = Tabla.getValueAt(row, 0).toString();
+        System.out.println("idTicket: " + idItem);
+        
+        FVerTicket VerTicket = new FVerTicket();
+        VerTicket.setPadre(this);
+        VerTicket.setId(idItem);
+        VerTicket.setVisible(true);
+        this.setVisible(false);
+        
+        
+    }//GEN-LAST:event_btnVerTicketActionPerformed
 
     public void limpiartabla() {
         DefaultTableModel temp = (DefaultTableModel) Tabla.getModel();
@@ -344,6 +371,7 @@ public final class FTickets extends javax.swing.JFrame {
     private javax.swing.JButton btnDepartamentos;
     private javax.swing.JButton btnFinalizar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnVerTicket;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
