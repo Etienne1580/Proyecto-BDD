@@ -174,8 +174,8 @@ public class FColaborador extends javax.swing.JFrame {
 
         nombre = txtNombre.getText();
         usuario = txtUsuario.getText();
-        clave = txtClave.getText();     
-        
+        clave = txtClave.getText();
+
         maria.setSql("delete from colaboradores where nombreColaborador = '" + nombre + "' and usuarioColaborador = '" + usuario + "' and claveColaborador = '" + clave + "';");
         maria.ejecutarSQL();
 
@@ -189,15 +189,35 @@ public class FColaborador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        posLista = jLista.getSelectedValue();
+
+        nombre = txtNombre.getText();
+        usuario = txtUsuario.getText();
+        clave = txtClave.getText();
+        departamento = CbModelo.getSelectedItem().toString();
+
+        String idDpto = departamentoToId(departamento);
+
+        maria.setSql("update colaboradores set nombreColaborador = '" + nombre + "', usuarioColaborador = '" + usuario + "', claveColaborador = '" + clave + "', idDepartamentoColaborador = '" + idDpto + "' where nombreColaborador = '" + posLista + "';");
+        maria.ejecutarSQL();
+
+        System.out.println("update colaboradores set nombreColaborador = '" + nombre + "', usuarioColaborador = '" + usuario + "', claveColaborador = '" + clave + "' where nombreColaborador = '" + posLista + "';");
+
+        txtNombre.setText("");
+        txtNombre.requestFocus();
+
+        conectarDatos();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         nombre = txtNombre.getText();
         usuario = txtUsuario.getText();
         clave = txtClave.getText();
+        departamento = CbModelo.getSelectedItem().toString();
 
-        maria.setSql("insert into colaboradores(nombreColaborador,usuarioColaborador,claveColaborador,idDepartamentoColaborador) values('" + nombre + "','" + usuario + "','" + clave + "', '4');");
+        idDpto = departamentoToId(departamento);
+
+        maria.setSql("insert into colaboradores(nombreColaborador,usuarioColaborador,claveColaborador,idDepartamentoColaborador) values('" + nombre + "','" + usuario + "','" + clave + "','" + idDpto + "');");
         maria.ejecutarSQL();
 
         txtNombre.setText("");
@@ -211,11 +231,21 @@ public class FColaborador extends javax.swing.JFrame {
 
     private void jListaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListaValueChanged
         String pos = jLista.getSelectedValue();
-        
-        maria.setSql("Select * from colaboradores where nombreColaborador = '" + pos +"'");
-        System.out.println(maria.getSql());
-                
+
+        maria.setSql("Select * from colaboradores where nombreColaborador = '" + pos + "'");
+        maria.ejecutarSQLSelect();
+
+        leerColaboradores();
+
         txtNombre.setText(pos);
+        txtUsuario.setText(usuario);
+        txtClave.setText(clave);
+        int idDpto = Integer.parseInt(departamento);
+        idDpto = idDpto - 1;
+
+        Departamentos.setSelectedIndex(idDpto);
+
+        System.out.println(maria.getSql());
     }//GEN-LAST:event_jListaValueChanged
 
     public static void main(String args[]) {
@@ -276,6 +306,40 @@ public class FColaborador extends javax.swing.JFrame {
 
     }
 
+    public String departamentoToId(String dpto) {
+        String idDpto = "";
+        maria.setSql("select idDepartamento from departamentos where nombreDepartamento = '" + dpto + "'");
+        maria.ejecutarSQLSelect();
+        System.out.println(maria.getSql());
+
+        try {
+            while (maria.getRs().next()) {
+                idDpto = maria.getRs().getString("idDepartamento");
+                System.out.println("idDpto: " + idDpto);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return idDpto;
+    }
+
+    void leerColaboradores() {
+        try {
+            while (maria.getRs().next()) {
+                nombre = maria.getRs().getString("nombreColaborador");
+                departamento = maria.getRs().getString("idDepartamentoColaborador");
+                usuario = maria.getRs().getString("usuarioColaborador");
+                clave = maria.getRs().getString("claveColaborador");
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+    }
+
     public FTickets getPadre() {
         return padre;
     }
@@ -288,12 +352,15 @@ public class FColaborador extends javax.swing.JFrame {
     String usuario;
     String clave;
     String departamento;
+    String posLista;
+    String idDpto;
 
     DefaultListModel modelo;
     MariaDB maria;
     DefaultComboBoxModel CbModelo;
 
     FTickets padre;
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Departamentos;
