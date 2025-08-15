@@ -10,15 +10,14 @@ public class FVerTicket extends javax.swing.JFrame {
         
         maria = new MariaDB();
         modelo = new DefaultTableModel();
+        Tabla.setModel(modelo);
         this.id = "";
         String id = getId();
-        Tabla.setModel(modelo);
 
         String titulos[] = {"ID", "Asunto", "Descripción", "Fecha Alta", "Fecha Límite", "Departamento", "Colab. de Alta", "Prioridad",  "Actividad"};
         modelo.setColumnIdentifiers(titulos);
         
         usuarioIngresado = new String[5];
-        System.out.print(getFecha() + "\n");
     }
 
     @SuppressWarnings("unchecked")
@@ -29,6 +28,7 @@ public class FVerTicket extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        btnLeer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Ver Ticket");
@@ -69,33 +69,40 @@ public class FVerTicket extends javax.swing.JFrame {
 
         jLabel1.setText("Ver Ticket Actual");
 
+        btnLeer.setText("Leer");
+        btnLeer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLeerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(309, 309, 309)
+                        .addComponent(btnLeer)
+                        .addGap(200, 200, 200)
                         .addComponent(btnRegresar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 699, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(68, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRegresar)
-                .addGap(65, 65, 65))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegresar)
+                    .addComponent(btnLeer))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -108,8 +115,13 @@ public class FVerTicket extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        String sql = "select * from tickets where idTicket = " + id;
+        
+    }//GEN-LAST:event_formWindowActivated
+
+    private void btnLeerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerActionPerformed
+        String sql = "select * from tickets";
         System.out.println(sql);
+        
         
         try {
             while(maria.getRs().next()) {
@@ -120,7 +132,7 @@ public class FVerTicket extends javax.swing.JFrame {
         }
         
         this.leerTickets(sql);
-    }//GEN-LAST:event_formWindowActivated
+    }//GEN-LAST:event_btnLeerActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -179,15 +191,15 @@ public class FVerTicket extends javax.swing.JFrame {
                 String FechaAlta = maria.getRs().getString("fechaAltaTicket");
                 String FechaLimite = maria.getRs().getString("fechaLimiteTicket");
                 int idDepartamento = maria.getRs().getInt("idDepartamentoTicket");
-                String nombreDepartamento = idToDepartamento(idDepartamento);
+                //String nombreDepartamento = idToDepartamento(idDepartamento);
                 int idColaboradorAlta = maria.getRs().getInt("idColaboradorAltaTicket");
-                String nombreColaboradorAlta = idToColaborador(idColaboradorAlta);
+                //String nombreColaboradorAlta = idToColaborador(idColaboradorAlta);
                 int Prioridad = maria.getRs().getInt("prioridadTicket");
                 int ActivoTicket = maria.getRs().getInt("activoTicket");
                 
-                System.out.println(idTicket + "\n" + Asunto + "\n" + Descripcion + "\n" + FechaAlta + "\n" + FechaLimite + "\n" + nombreDepartamento + "\n" + nombreColaboradorAlta + "\n" + Prioridad + "\n" + ActivoTicket);
+                System.out.println(idTicket + "\n" + Asunto + "\n" + Descripcion + "\n" + FechaAlta + "\n" + FechaLimite + "\n" + idDepartamento + "\n" + idColaboradorAlta + "\n" + Prioridad + "\n" + ActivoTicket);
 
-                modelo.addRow(new Object[]{idTicket, Asunto, Descripcion, FechaAlta, FechaLimite, nombreDepartamento, nombreColaboradorAlta, Prioridad, ActivoTicket});
+                modelo.addRow(new Object[]{idTicket, Asunto, Descripcion, FechaAlta, FechaLimite, idDepartamento, idColaboradorAlta, Prioridad, ActivoTicket});
             }
 
         } catch (SQLException e) {
@@ -281,6 +293,7 @@ public class FVerTicket extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabla;
+    private javax.swing.JButton btnLeer;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -3,6 +3,7 @@ package proyecto.bdd;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 public final class FTickets extends javax.swing.JFrame {
 
@@ -16,7 +17,7 @@ public final class FTickets extends javax.swing.JFrame {
         String titulos[] = {"ID", "Asunto", "Fecha Alta", "Activo Ticket"};
         modelo.setColumnIdentifiers(titulos);
 
-        this.leerTickets("select * from tickets");
+        this.leerTickets("select * from tickets where activoTicket != 7");
 
         usuarioIngresado = new String[5];
         
@@ -77,6 +78,11 @@ public final class FTickets extends javax.swing.JFrame {
         });
 
         btnFinalizar.setText("Finalizar");
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarActionPerformed(evt);
+            }
+        });
 
         btnColaborador.setText("Colaborador");
         btnColaborador.addActionListener(new java.awt.event.ActionListener() {
@@ -261,7 +267,7 @@ public final class FTickets extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
 
-        this.leerTickets("select * from  tickets  ");
+        this.leerTickets("select * from  tickets where activoTicket != 7");
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnVerTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerTicketActionPerformed
@@ -277,6 +283,23 @@ public final class FTickets extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnVerTicketActionPerformed
+
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+        int row = Tabla.getSelectedRow();
+        String idItem = Tabla.getValueAt(row, 0).toString();
+        System.out.println("idTicket a finalizar: " + idItem);
+        String fecha = getFecha();
+        String idUsuarioCompletado = this.usuarioIngresado[0];
+        
+        String sql = "update tickets set activoTicket = 7, idColaboradorCompletadoTicket = " + idUsuarioCompletado + ", fechaCompletadoTicket = '" + fecha + "' where idTicket = " + idItem;
+        System.out.println(sql);
+        
+        maria.setSql(sql);
+        maria.ejecutarSQL();
+        
+        JOptionPane.showMessageDialog(this, "¡Felicidades, has completado tu tarea!");
+        
+    }//GEN-LAST:event_btnFinalizarActionPerformed
 
     public void limpiartabla() {
         DefaultTableModel temp = (DefaultTableModel) Tabla.getModel();
