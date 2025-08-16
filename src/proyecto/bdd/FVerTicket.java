@@ -28,7 +28,7 @@ public class FVerTicket extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        btnLeer = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Ver Ticket");
@@ -69,10 +69,10 @@ public class FVerTicket extends javax.swing.JFrame {
 
         jLabel1.setText("Ver Ticket Actual");
 
-        btnLeer.setText("Leer");
-        btnLeer.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLeerActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
 
@@ -82,14 +82,15 @@ public class FVerTicket extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnLeer)
-                        .addGap(200, 200, 200)
-                        .addComponent(btnRegresar)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                        .addComponent(btnActualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRegresar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,12 +98,12 @@ public class FVerTicket extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar)
-                    .addComponent(btnLeer))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addComponent(btnActualizar))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,26 +115,91 @@ public class FVerTicket extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        String sql = "select T.idTicket, T.asuntoTicket, T.descripcionTicket, T.fechaAltaTicket, T.fechaLimiteTicket, D.nombreDepartamento, C.nombreColaborador, T.prioridadTicket, T.activoTicket from tickets T, departamentos D, colaboradores C where T.idTicket = " + id + " and T.idDepartamentoTicket = D.idDepartamento and T.idColaboradorAltaTicket = C.idColaborador";
+        maria.setSql(sql);
+        maria.ejecutarSQLSelect();
         
-    }//GEN-LAST:event_formWindowActivated
-
-    private void btnLeerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerActionPerformed
-        String sql = "select * from tickets";
         System.out.println(sql);
-        
+        limpiarTabla();
         
         try {
             while(maria.getRs().next()) {
-                System.out.println(maria.getRs());
+                String idTicket = maria.getRs().getString("T.idTicket");
+                String Asunto = maria.getRs().getString("T.asuntoTicket");
+                String Descripcion = maria.getRs().getString("T.descripcionTicket");
+                String FechaAlta = maria.getRs().getString("T.fechaAltaTicket");
+                String FechaLimite = maria.getRs().getString("T.fechaLimiteTicket");
+                String nombreDepartamento = maria.getRs().getString("D.nombreDepartamento");
+                String nombreColaboradorAlta = maria.getRs().getString("C.nombreColaborador");
+                String Prioridad = maria.getRs().getString("prioridadTicket");
+                String ActivoTicket = maria.getRs().getString("activoTicket");
+                
+                modelo.addRow(new Object[]{idTicket, Asunto, Descripcion, FechaAlta, FechaLimite, nombreDepartamento, nombreColaboradorAlta, Prioridad, ActivoTicket});
             }
         } catch(SQLException e) {
             System.out.println("Error de SQL: " + e.getMessage());
+            
         }
         
-        this.leerTickets(sql);
-    }//GEN-LAST:event_btnLeerActionPerformed
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        String sql = "select T.idTicket, T.asuntoTicket, T.descripcionTicket, T.fechaAltaTicket, T.fechaLimiteTicket, D.nombreDepartamento, C.nombreColaborador, T.prioridadTicket, T.activoTicket from tickets T, departamentos D, colaboradores C where T.idTicket = " + id + " and T.idDepartamentoTicket = D.idDepartamento and T.idColaboradorAltaTicket = C.idColaborador";
+        maria.setSql(sql);
+        maria.ejecutarSQLSelect();
+        
+        System.out.println(sql);
+        limpiarTabla();
+        
+        try {
+            while(maria.getRs().next()) {
+                String idTicket = maria.getRs().getString("T.idTicket");
+                String Asunto = maria.getRs().getString("T.asuntoTicket");
+                String Descripcion = maria.getRs().getString("T.descripcionTicket");
+                String FechaAlta = maria.getRs().getString("T.fechaAltaTicket");
+                String FechaLimite = maria.getRs().getString("T.fechaLimiteTicket");
+                String nombreDepartamento = maria.getRs().getString("D.nombreDepartamento");
+                String nombreColaboradorAlta = maria.getRs().getString("C.nombreColaborador");
+                String Prioridad = maria.getRs().getString("prioridadTicket");
+                String ActivoTicket = maria.getRs().getString("activoTicket");
+                
+                modelo.addRow(new Object[]{idTicket, Asunto, Descripcion, FechaAlta, FechaLimite, nombreDepartamento, nombreColaboradorAlta, Prioridad, ActivoTicket});
+            }
+        } catch(SQLException e) {
+            System.out.println("Error de SQL: " + e.getMessage());
+            
+        }
+    }//GEN-LAST:event_formWindowActivated
+
+    public void desplegarTicket() {
+        String sql = "select T.idTicket, T.asuntoTicket, T.descripcionTicket, T.fechaAltaTicket, T.fechaLimiteTicket, D.nombreDepartamento, C.nombreColaborador, T.prioridadTicket, T.activoTicket from tickets T, departamentos D, colaboradores C where T.idTicket = " + id + " and T.idDepartamentoTicket = D.idDepartamento and T.idColaboradorAltaTicket = C.idColaborador";
+        maria.setSql(sql);
+        maria.ejecutarSQLSelect();
+        
+        System.out.println(sql);
+        limpiarTabla();
+        
+        try {
+            while(maria.getRs().next()) {
+                String idTicket = maria.getRs().getString("T.idTicket");
+                String Asunto = maria.getRs().getString("T.asuntoTicket");
+                String Descripcion = maria.getRs().getString("T.descripcionTicket");
+                String FechaAlta = maria.getRs().getString("T.fechaAltaTicket");
+                String FechaLimite = maria.getRs().getString("T.fechaLimiteTicket");
+                String nombreDepartamento = maria.getRs().getString("D.nombreDepartamento");
+                String nombreColaboradorAlta = maria.getRs().getString("C.nombreColaborador");
+                String Prioridad = maria.getRs().getString("prioridadTicket");
+                String ActivoTicket = maria.getRs().getString("activoTicket");
+                
+                modelo.addRow(new Object[]{idTicket, Asunto, Descripcion, FechaAlta, FechaLimite, nombreDepartamento, nombreColaboradorAlta, Prioridad, ActivoTicket});
+            }
+        } catch(SQLException e) {
+            System.out.println("Error de SQL: " + e.getMessage());
+            
+        }
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -293,7 +359,7 @@ public class FVerTicket extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabla;
-    private javax.swing.JButton btnLeer;
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

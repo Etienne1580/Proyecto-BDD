@@ -253,7 +253,7 @@ public final class FTickets extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         Fecha = txtFecha.getText();
-        String consulta = "select * from tickets where fechaAltaTicket >= '" + Fecha + "' order by idTicket";
+        String consulta = "select * from tickets where fechaAltaTicket >= '" + Fecha + "' order by idTicket and activoTicket != 7";
 
         System.out.println(consulta);
         this.leerTickets(consulta);

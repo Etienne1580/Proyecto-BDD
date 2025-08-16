@@ -312,7 +312,7 @@ public class FNuevoticket extends javax.swing.JFrame {
             System.out.println("\nFecha Limite: " + fechaLim + "\nDepartamento: " + idDpto + "\nID de Colaborador: " + idColaboradorAlta + "\nPrioridad: " + prioridad + " (" + numPrioridad + ")");
             System.out.println("Asunto: " + asuntoTicket + "\nDescripcion: " + descripcionTicket);
 
-            maria.setSql("insert into tickets(descripcionTicket, fechaAltaTicket, fechaLimiteTicket, idDepartamentoTicket, idColaboradorAltaTicket, prioridadTicket, asuntoTicket, activoTicket) values('" + descripcion + "', '" + fechaAlta + "', '" + fechaLim + "', " + idDpto + ", " + idColaboradorAlta + ", " + numPrioridad + ", '" + asunto + "', 1)");
+            maria.setSql("insert into tickets(descripcionTicket, fechaAltaTicket, fechaLimiteTicket, idDepartamentoTicket, idColaboradorAltaTicket, prioridadTicket, asuntoTicket) values('" + descripcion + "', '" + fechaAlta + "', '" + fechaLim + "', " + idDpto + ", " + idColaboradorAlta + ", " + numPrioridad + ", '" + asunto + "')");
             maria.ejecutarSQL();
             System.out.println(maria.getSql());
 
